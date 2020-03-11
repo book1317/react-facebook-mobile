@@ -1,0 +1,16 @@
+.profile-friend-container {
+  background-color: white;
+}
+
+.topic-text {
+  display: flex;
+  justify-content: space-between;
+
+  > .friend-topic {
+    font-weight: bold;
+  }
+
+  > .find-friend {
+    color: blue;
+  }
+}

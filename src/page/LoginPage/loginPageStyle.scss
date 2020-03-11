@@ -1,0 +1,64 @@
+.login-page {
+  background-color: #3b5999;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.login-facebook-logo {
+  width: 60%;
+  height: 60%;
+  padding-top: 120px;
+  margin-bottom: 20px;
+}
+
+$input-radius: 3px;
+.login-input,
+.login-button {
+  width: 83%;
+  height: 50px;
+  border-width: 0px;
+  padding: 0px 10px;
+
+  &.user-input,
+  &.password-input {
+    font-size: 15px;
+  }
+
+  &.user-input {
+    border-radius: $input-radius $input-radius 0px 0px;
+    border-width: 0px 0px 1px 0px;
+  }
+  &.password-input {
+    border-radius: 0px 0px $input-radius $input-radius;
+  }
+  &:focus {
+    outline-width: 0px;
+  }
+}
+
+.login-button {
+  background-color: #4f69a2;
+  margin-top: 8px;
+  width: 83%;
+  border-radius: $input-radius;
+  text-align: center;
+
+  text-decoration: none;
+  vertical-align: middle;
+  color: white;
+  font-size: 18px;
+  line-height: 2.4;
+}
+
+.login-text-container {
+  margin-top: 90px;
+  text-align: center;
+}
+
+.login-bottom-text {
+  margin-top: 25px;
+}

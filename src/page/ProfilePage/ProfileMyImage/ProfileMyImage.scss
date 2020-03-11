@@ -1,0 +1,25 @@
+.my-image-container {
+  background-color: white;
+  padding: 10px 0px;
+  line-height: 0;
+  text-align: center;
+
+  > img {
+    width: 32%;
+    padding: 2px;
+  }
+
+  $borderRadius: 10px;
+  > .my-image1 {
+    border-radius: $borderRadius 0px 0px 0px;
+  }
+  > .my-image2 {
+    border-radius: 0px $borderRadius 0px 0px;
+  }
+  > .my-image3 {
+    border-radius: 0px 0px $borderRadius 0px;
+  }
+  > .my-image4 {
+    border-radius: 0px 0px 0px $borderRadius;
+  }
+}
