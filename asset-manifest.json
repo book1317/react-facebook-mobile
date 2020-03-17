@@ -1,28 +1,29 @@
 {
   "files": {
-    "main.css": "/react-facebook-mobile/static/css/main.7bcc69db.chunk.css",
-    "main.js": "/react-facebook-mobile/static/js/main.11829066.chunk.js",
-    "main.js.map": "/react-facebook-mobile/static/js/main.11829066.chunk.js.map",
-    "runtime-main.js": "/react-facebook-mobile/static/js/runtime-main.7b779a94.js",
-    "runtime-main.js.map": "/react-facebook-mobile/static/js/runtime-main.7b779a94.js.map",
-    "static/css/2.f6be7914.chunk.css": "/react-facebook-mobile/static/css/2.f6be7914.chunk.css",
-    "static/js/2.5e2b4e51.chunk.js": "/react-facebook-mobile/static/js/2.5e2b4e51.chunk.js",
-    "static/js/2.5e2b4e51.chunk.js.map": "/react-facebook-mobile/static/js/2.5e2b4e51.chunk.js.map",
-    "index.html": "/react-facebook-mobile/index.html",
-    "precache-manifest.b77fc82f7e7416c5ced7184d212b1c7e.js": "/react-facebook-mobile/precache-manifest.b77fc82f7e7416c5ced7184d212b1c7e.js",
-    "service-worker.js": "/react-facebook-mobile/service-worker.js",
-    "static/css/2.f6be7914.chunk.css.map": "/react-facebook-mobile/static/css/2.f6be7914.chunk.css.map",
-    "static/css/main.7bcc69db.chunk.css.map": "/react-facebook-mobile/static/css/main.7bcc69db.chunk.css.map",
-    "static/js/2.5e2b4e51.chunk.js.LICENSE.txt": "/react-facebook-mobile/static/js/2.5e2b4e51.chunk.js.LICENSE.txt",
-    "static/media/facebook.png": "/react-facebook-mobile/static/media/facebook.af2ed183.png",
-    "static/media/logo.png": "/react-facebook-mobile/static/media/logo.aecebd1a.png",
-    "static/media/slick-theme.css": "/react-facebook-mobile/static/media/slick.f97e3bbf.svg"
+    "main.css": "/static/css/main.5d74a271.chunk.css",
+    "main.js": "/static/js/main.0da03b7a.chunk.js",
+    "main.js.map": "/static/js/main.0da03b7a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.82addb54.js",
+    "runtime-main.js.map": "/static/js/runtime-main.82addb54.js.map",
+    "static/css/2.c60feeff.chunk.css": "/static/css/2.c60feeff.chunk.css",
+    "static/js/2.945e5a1b.chunk.js": "/static/js/2.945e5a1b.chunk.js",
+    "static/js/2.945e5a1b.chunk.js.map": "/static/js/2.945e5a1b.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.a608f294f6959edb554b7f13030e8895.js": "/precache-manifest.a608f294f6959edb554b7f13030e8895.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.c60feeff.chunk.css.map": "/static/css/2.c60feeff.chunk.css.map",
+    "static/css/main.5d74a271.chunk.css.map": "/static/css/main.5d74a271.chunk.css.map",
+    "static/js/2.945e5a1b.chunk.js.LICENSE.txt": "/static/js/2.945e5a1b.chunk.js.LICENSE.txt",
+    "static/media/facebook.png": "/static/media/facebook.af2ed183.png",
+    "static/media/logo.png": "/static/media/logo.aecebd1a.png",
+    "static/media/profile1.png": "/static/media/profile1.6faebd7c.png",
+    "static/media/slick-theme.css": "/static/media/slick.f97e3bbf.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.7b779a94.js",
-    "static/css/2.f6be7914.chunk.css",
-    "static/js/2.5e2b4e51.chunk.js",
-    "static/css/main.7bcc69db.chunk.css",
-    "static/js/main.11829066.chunk.js"
+    "static/js/runtime-main.82addb54.js",
+    "static/css/2.c60feeff.chunk.css",
+    "static/js/2.945e5a1b.chunk.js",
+    "static/css/main.5d74a271.chunk.css",
+    "static/js/main.0da03b7a.chunk.js"
   ]
 }
