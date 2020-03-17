@@ -4,9 +4,11 @@ import ProfileMyImage from "./ProfileMyImage/ProfileMyImage";
 import "./ProfilePage.scss";
 import { inject, observer } from "mobx-react";
 
+type MyProps = { profile?: any };
+
 @inject("profile")
 @observer
-export default class ProfilePage extends React.Component {
+export default class ProfilePage extends React.Component<MyProps> {
   render() {
     return (
       <div className="profile-container">
@@ -19,7 +21,7 @@ export default class ProfilePage extends React.Component {
 
           <img
             className="profile-image"
-            src={`https://mpics.mgronline.com/pics/Images/562000002057602.JPEG`}
+            src={this.props.profile.profileImage}
           />
         </div>
         <div className="profile-name">

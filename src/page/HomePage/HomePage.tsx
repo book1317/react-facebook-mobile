@@ -41,6 +41,8 @@ export default class HomePage extends React.Component<MyProps, MyState> {
     }
   };
 
+  componentDidMount() {}
+
   render() {
     return (
       <div className="home-page">

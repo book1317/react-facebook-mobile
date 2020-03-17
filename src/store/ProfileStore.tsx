@@ -1,4 +1,4 @@
-import { observable, action, autorun } from "mobx";
+import { observable, action } from "mobx";
 import profile1 from "../image/profile1.png";
 
 export class ProfileStore {
