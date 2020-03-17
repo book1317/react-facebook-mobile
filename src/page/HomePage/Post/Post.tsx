@@ -1,7 +1,7 @@
 import React from "react";
 import "./postStyle.scss";
 import { FaRegThumbsUp, FaShare, FaRegCommentAlt } from "react-icons/fa";
-import ProfileImage from "./ProfileImage";
+import profileImage from "../../../image/profile1.png";
 import Comment from "./Comment";
 
 type MyProps = { content?: string };
@@ -37,7 +37,10 @@ export default class Post extends React.Component<MyProps, MyState> {
     return (
       <div className="home-post-container">
         <div className="post-title-container">
-          <div className="post-profile-image circle-container" />
+          <img
+            src={profileImage}
+            className="post-profile-image circle-container"
+          />
           <span className="post-profile-name">Name Poster</span>
         </div>
         <div className="post-date">Yesterday at 12:13</div>
