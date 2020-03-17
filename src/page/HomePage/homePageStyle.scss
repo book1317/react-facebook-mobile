@@ -1,98 +1,112 @@
 .home-facebook-logo {
-  width: 50%;
-  height: 50%;
-  padding: 10px;
+    width: 50%;
+    height: 50%;
+    padding: 10px;
 }
 
 .home-header-container,
 .home-above-content,
 .home-story-content {
-  background-color: white;
+    background-color: white;
 }
 
 .circle-container {
-  &.mini {
-    width: 30px;
-    height: 30px;
-  }
-
-  display: block;
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
-  background-color: #e5e5ed;
+    &.mini {
+        width: 30px;
+        height: 30px;
+    }
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: #e5e5ed;
 }
 
 .home-icon-container {
-  color: black;
-  position: relative;
-  float: right;
-  margin: 10px 10px 0px 0px;
+    color: black;
+    position: relative;
+    float: right;
+    margin: 10px 10px 0px 0px;
 }
 
 .home-header-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
 }
 
 .home-profile-image-container {
-  width: 60px;
-  height: 60px;
-  margin: 10px;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
 }
 
 .home-profile-comment-container {
-  display: flex;
+    display: flex;
 }
 
 .home-profile-comment-input {
-  margin: auto 0px;
-  border-width: 0px;
-  height: 30px;
-  padding: 10px;
-  color: black;
-
-  &::placeholder {
+    margin: auto 0px;
+    border-width: 0px;
+    height: 30px;
+    padding: 10px;
     color: black;
-    opacity: 1;
-  }
-
-  &:focus {
-    outline-width: 0px;
-  }
+    font-size: 18px;
+    &::placeholder {
+        color: black;
+        opacity: 1;
+    }
+    &:focus {
+        outline-width: 0px;
+    }
 }
 
 .home-option-container {
-  display: flex;
-  justify-content: space-between;
-  line-height: 3.2;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 }
 
 .home-option-icon-container {
-  border-top: #e5e5ed solid 1px;
-  width: 100%;
-  height: 50px;
-  text-align: center;
-  position: relative;
+    border-top: #e5e5ed solid 1px;
+    width: 100%;
+    height: 45px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    >.text-after-icon {
+        margin-left: 5px;
+        font-size: 14px;
+        font-weight: 500;
+    }
 }
 
 .home-option-icon {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
+    &.video {
+        color: red;
+    }
+    &.photo {
+        color: green;
+    }
+    &.check-in {
+        color: red;
+    }
 }
 
 .home-option-icon-border {
-  position: absolute;
-  right: 0;
-  background-color: #e5e5ed;
-  top: 50%;
-  width: 2px;
-  height: 20px;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    right: 0;
+    background-color: #e5e5ed;
+    top: 50%;
+    width: 1px;
+    height: 30px;
+    transform: translate(-50%, -50%);
 }
 
 .home-post-container {}

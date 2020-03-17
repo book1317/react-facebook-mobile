@@ -7,6 +7,7 @@ import {
   Link,
   withRouter
 } from "react-router-dom";
+import { Provider } from "mobx-react";
 import LoginPage from "./page/LoginPage/LoginPage";
 import HomePage from "./page/HomePage/HomePage";
 import ProfilePage from "./page/ProfilePage/ProfilePage";
@@ -25,7 +26,6 @@ class App extends React.Component<MyProps, MyState> {
   componentDidMount() {
     document.title = "Facebook";
     this.checkShowFooter();
-    console.log(this.props);
   }
 
   componentWillReceiveProps() {
@@ -33,7 +33,6 @@ class App extends React.Component<MyProps, MyState> {
   }
 
   checkShowFooter() {
-    console.log(this.props.location.pathname == "/login");
     if (this.props.location.pathname == "/login")
       this.setState({ showFooter: false });
     else this.setState({ showFooter: true });
@@ -44,7 +43,6 @@ class App extends React.Component<MyProps, MyState> {
       <Router>
         <div>
           {this.state.showFooter && <Footer />}
-
           <Switch>
             <Route path="/login">
               <LoginPage />

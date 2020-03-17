@@ -3,19 +3,23 @@ import "./postStyle.scss";
 import { FaRegThumbsUp, FaShare, FaRegCommentAlt } from "react-icons/fa";
 import profileImage from "../../../image/profile1.png";
 import Comment from "./Comment";
+import { inject, observer } from "mobx-react";
 
-type MyProps = { content?: string };
+type MyProps = { content?: string; profile?: any; like: number; comment: any };
 type MyState = { comment: Array<object>; content?: string; like: number };
+
 export default class Post extends React.Component<MyProps, MyState> {
-  constructor(props?: any) {
-    super(props);
-    this.state = {
-      like: 0,
-      comment: [
-        { content: "eiei", like: 0 },
-        { content: "55555", like: 10 }
-      ]
-    };
+  state = {
+    like: 0,
+    comment: [
+      { content: "eiei", like: 0 },
+      { content: "55555", like: 10 }
+    ]
+  };
+
+  componentDidMount() {
+    console.log(this.props);
+    this.setState({ ...this.props });
   }
 
   handleKeyDown = (e?: any) => {
@@ -41,7 +45,9 @@ export default class Post extends React.Component<MyProps, MyState> {
             src={profileImage}
             className="post-profile-image circle-container"
           />
-          <span className="post-profile-name">Name Poster</span>
+          <span className="post-profile-name">
+            {this.props.profile.name || "Profile Name"}
+          </span>
         </div>
         <div className="post-date">Yesterday at 12:13</div>
         <div className="post-content">{this.props.content}</div>
@@ -51,7 +57,9 @@ export default class Post extends React.Component<MyProps, MyState> {
             <span className="text-after-icon">{this.state.like}</span>
           </div>
           <div>
-            <div className="right-detail">40 Comments</div>
+            <div className="right-detail">
+              {this.state.comment.length} Comments
+            </div>
           </div>
         </div>
         <div className="post-interact-container">

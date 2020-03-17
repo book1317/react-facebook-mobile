@@ -2,7 +2,10 @@ import React from "react";
 import ProfileFriend from "./ProfileFirend/ProfileFriend";
 import ProfileMyImage from "./ProfileMyImage/ProfileMyImage";
 import "./ProfilePage.scss";
+import { inject, observer } from "mobx-react";
 
+@inject("profile")
+@observer
 export default class ProfilePage extends React.Component {
   render() {
     return (
