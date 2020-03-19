@@ -12,7 +12,6 @@ import {
 import { inject, observer } from "mobx-react";
 import StorySlider from "./Story/StorySlider";
 import Post from "./Post/Post";
-import profileImage from "../../image/profile1.png";
 
 type MyProps = { profile?: any };
 type MyState = { post?: any };
@@ -31,7 +30,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
   handleKeyDown = (e?: any) => {
     if (e.key === "Enter" && e.target.value != "") {
       var joined = this.state.post.concat({
-        profile: this.props.profile,
+        id: this.props.profile.id,
         content: e.target.value,
         like: 0,
         comment: []
@@ -44,6 +43,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
   componentDidMount() {}
 
   render() {
+    const { profile } = this.props;
     return (
       <div className="home-page">
         <div className="home-header-container">
@@ -58,7 +58,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
         <div className="home-above-content">
           <div className="home-profile-comment-container">
             <img
-              src={profileImage}
+              src={profile.image}
               className="circle-container home-profile-image-container"
             />
             <input
@@ -86,7 +86,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
         </div>
         <StorySlider />
         {this.state.post.map(e => (
-          <Post {...e} profile={this.props.profile} />
+          <Post {...e} />
         ))}
         <div style={{ marginBottom: 60 }} />
       </div>
@@ -96,18 +96,27 @@ export default class HomePage extends React.Component<MyProps, MyState> {
 
 const allPost = [
   {
-    profile: "",
+    id: 0,
     content: "Breaking Newsssss",
     like: 10,
     comment: [
-      { profile: "", content: "eiei", like: 0 },
-      { profile: "", content: "fuckyou", like: 2 }
+      { id: 1, content: "hello", like: 0 },
+      { id: 1, content: "eiei", like: 2 }
     ]
   },
   {
-    profile: "",
+    id: 1,
     content: "Playing Timeeeeeeee",
     like: 15,
-    comment: [{ profile: "", content: "haha", like: 0 }]
+    comment: [
+      { id: 0, content: "haha", like: 0 },
+      { id: 2, content: "haha", like: 0 }
+    ]
+  },
+  {
+    id: 2,
+    content: "Ya Hu`````````",
+    like: 15,
+    comment: []
   }
 ];

@@ -1,30 +1,34 @@
 import React from "react";
 import "./postStyle.scss";
 import { FaRegThumbsUp, FaShare, FaRegCommentAlt } from "react-icons/fa";
-import profileImage from "../../../image/profile1.png";
 import Comment from "./Comment";
 import { inject, observer } from "mobx-react";
 
-type MyProps = { content?: string; profile?: any; like: number; comment: any };
+type MyProps = {
+  content?: string;
+  profile?: any;
+  like: number;
+  comment: any;
+  id: number;
+};
 type MyState = { comment: Array<object>; content?: string; like: number };
 
+@inject("profile")
+@observer
 export default class Post extends React.Component<MyProps, MyState> {
   state = {
     like: 0,
-    comment: [
-      { content: "eiei", like: 0 },
-      { content: "55555", like: 10 }
-    ]
+    comment: [{ id: 0, content: "", like: 0 }]
   };
 
   componentDidMount() {
-    console.log(this.props);
     this.setState({ ...this.props });
   }
 
   handleKeyDown = (e?: any) => {
     if (e.key === "Enter" && e.target.value != "") {
       var joined = this.state.comment.concat({
+        id: this.props.profile.id,
         content: e.target.value,
         like: 0
       });
@@ -38,28 +42,28 @@ export default class Post extends React.Component<MyProps, MyState> {
   };
 
   render() {
+    const { id, profile, content } = this.props;
+    const { like, comment } = this.state;
     return (
       <div className="home-post-container">
         <div className="post-title-container">
           <img
-            src={profileImage}
+            src={profile.getProfileById(id).image}
             className="post-profile-image circle-container"
           />
           <span className="post-profile-name">
-            {this.props.profile.name || "Profile Name"}
+            {`${profile.name} ${profile.sname}` || "Profile Name"}
           </span>
         </div>
         <div className="post-date">Yesterday at 12:13</div>
-        <div className="post-content">{this.props.content}</div>
+        <div className="post-content">{content}</div>
         <div className="post-status">
           <div>
             <FaRegThumbsUp />
-            <span className="text-after-icon">{this.state.like}</span>
+            <span className="text-after-icon">{like}</span>
           </div>
           <div>
-            <div className="right-detail">
-              {this.state.comment.length} Comments
-            </div>
+            <div className="right-detail">{comment.length} Comments</div>
           </div>
         </div>
         <div className="post-interact-container">
@@ -79,8 +83,8 @@ export default class Post extends React.Component<MyProps, MyState> {
           </div>
         </div>
 
-        {this.state.comment.map((e?: any) => (
-          <Comment content={e.content} like={e.like} />
+        {this.state.comment.map(e => (
+          <Comment {...e} />
         ))}
 
         <input

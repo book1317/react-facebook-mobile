@@ -19,10 +19,7 @@ export default class ProfilePage extends React.Component<MyProps> {
             src={`https://img.huffingtonpost.com/asset/5dcc613f1f00009304dee539.jpeg?cache=QaTFuOj2IM&ops=crop_834_777_4651_2994%2Cscalefit_720_noupscale`}
           />
 
-          <img
-            className="profile-image"
-            src={this.props.profile.profileImage}
-          />
+          <img className="profile-image" src={this.props.profile.image} />
         </div>
         <div className="profile-name">
           <div>Raweewat</div>

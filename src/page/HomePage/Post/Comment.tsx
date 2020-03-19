@@ -1,14 +1,23 @@
 import React from "react";
 import { FaRegThumbsUp } from "react-icons/fa";
-import profileImage from "../../../image/profile1.png";
+import { inject, observer } from "mobx-react";
 
-type MyProps = { src?: string; content: string; like: number };
+type MyProps = {
+  src?: string;
+  content: string;
+  like: number;
+  id: number;
+  profile?: any;
+};
 type MyState = { like: number };
+
+@inject("profile")
+@observer
 export default class Comment extends React.Component<MyProps, MyState> {
   constructor(props?: any) {
     super(props);
     this.state = {
-      like: this.props.like
+      like: props.like || 0
     };
   }
 
@@ -17,13 +26,16 @@ export default class Comment extends React.Component<MyProps, MyState> {
   };
 
   render() {
+    const { id, content, profile } = this.props;
+    const { like } = this.state;
+    console.log(this.props);
     return (
       <div className="post-comment-container">
         <img
-          src={profileImage}
+          src={profile.getProfileById(id).image}
           className="post-profile-image circle-container mini"
         />
-        <span className="post-comment-text">{this.props.content}</span>
+        <span className="post-comment-text">{content}</span>
         <div className="post-comment-option-container">
           <div className="post-comment-time-text">1 HOUR AGO</div>
           <div className="text-after-icon" onClick={this.handleLikeButton}>
@@ -31,9 +43,7 @@ export default class Comment extends React.Component<MyProps, MyState> {
           </div>
           <div className="text-after-icon">Reply</div>
           <FaRegThumbsUp className="text-after-icon" />
-          <div className="text-after-icon">
-            {this.state.like ? this.state.like : ""}
-          </div>
+          <div className="text-after-icon">{like}</div>
         </div>
       </div>
     );
