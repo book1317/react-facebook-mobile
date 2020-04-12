@@ -6,7 +6,7 @@ import { inject, observer } from "mobx-react";
 
 type MyProps = {
   content?: string;
-  profile?: any;
+  ownerProfile?: any;
   like: number;
   comment: any;
   id: number;
@@ -18,7 +18,7 @@ type MyState = { comment: Array<object>; content?: string; like: number };
 export default class Post extends React.Component<MyProps, MyState> {
   state = {
     like: 0,
-    comment: [{ id: 0, content: "", like: 0 }]
+    comment: [{ id: 3, content: "", like: 0 }],
   };
 
   componentDidMount() {
@@ -28,9 +28,9 @@ export default class Post extends React.Component<MyProps, MyState> {
   handleKeyDown = (e?: any) => {
     if (e.key === "Enter" && e.target.value != "") {
       var joined = this.state.comment.concat({
-        id: this.props.profile.id,
+        id: this.props.ownerProfile.id,
         content: e.target.value,
-        like: 0
+        like: 0,
       });
       this.setState({ comment: joined });
       e.target.value = "";
@@ -42,17 +42,15 @@ export default class Post extends React.Component<MyProps, MyState> {
   };
 
   render() {
-    const { id, profile, content } = this.props;
+    const { ownerProfile, content } = this.props;
+    const { firstname, lastname, image } = ownerProfile;
     const { like, comment } = this.state;
     return (
       <div className="home-post-container">
         <div className="post-title-container">
-          <img
-            src={profile.getProfileById(id).image}
-            className="post-profile-image circle-container"
-          />
+          <img src={image} className="post-profile-image circle-container" />
           <span className="post-profile-name">
-            {`${profile.name} ${profile.sname}` || "Profile Name"}
+            {`${firstname} ${lastname}` || "Profile Name"}
           </span>
         </div>
         <div className="post-date">Yesterday at 12:13</div>
@@ -83,7 +81,7 @@ export default class Post extends React.Component<MyProps, MyState> {
           </div>
         </div>
 
-        {this.state.comment.map(e => (
+        {this.state.comment.map((e) => (
           <Comment {...e} />
         ))}
 

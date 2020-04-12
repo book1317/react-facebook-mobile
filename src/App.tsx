@@ -5,7 +5,7 @@ import {
   Switch,
   Route,
   Link,
-  withRouter
+  withRouter,
 } from "react-router-dom";
 import { Provider } from "mobx-react";
 import LoginPage from "./page/LoginPage/LoginPage";
@@ -19,7 +19,7 @@ class App extends React.Component<MyProps, MyState> {
   constructor(props?: any) {
     super(props);
     this.state = {
-      showFooter: false
+      showFooter: false,
     };
   }
 

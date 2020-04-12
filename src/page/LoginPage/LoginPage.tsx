@@ -10,8 +10,8 @@ type MyState = {};
 @inject("profile")
 class LoginPage extends React.Component<MyProps, MyState> {
   state = {
-    name: "",
-    pass: ""
+    user: "",
+    pass: "",
   };
 
   handleKeyDown = (e?: any) => {
@@ -25,8 +25,8 @@ class LoginPage extends React.Component<MyProps, MyState> {
   };
 
   onLogin = () => {
-    if (this.state.name && this.state.pass) {
-      this.props.profile.setName(this.state.name);
+    if (this.state.user && this.state.pass) {
+      this.props.profile.setName(this.state.user);
       this.props.history.push("/");
     }
   };
@@ -41,13 +41,13 @@ class LoginPage extends React.Component<MyProps, MyState> {
         <img className="login-facebook-logo" src={facebook_image} />
         <input
           className={"login-input user-input"}
-          onChange={e => this.setState({ name: e.target.value })}
+          onChange={(e) => this.setState({ user: e.target.value })}
           onKeyDown={this.handleKeyDown}
           type="string"
         />
         <input
           className="login-input password-input"
-          onChange={e => this.setState({ pass: e.target.value })}
+          onChange={(e) => this.setState({ pass: e.target.value })}
           onKeyDown={this.handleKeyDown}
           type="password"
         />

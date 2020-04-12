@@ -8,8 +8,9 @@ type MyProps = {
   like: number;
   id: number;
   profile?: any;
+  ownerProfile?: any;
 };
-type MyState = { like: number };
+type MyState = { like: number; count: number };
 
 @inject("profile")
 @observer
@@ -17,7 +18,8 @@ export default class Comment extends React.Component<MyProps, MyState> {
   constructor(props?: any) {
     super(props);
     this.state = {
-      like: props.like || 0
+      like: props.like || 0,
+      count: 0,
     };
   }
 
@@ -26,13 +28,13 @@ export default class Comment extends React.Component<MyProps, MyState> {
   };
 
   render() {
-    const { id, content, profile } = this.props;
+    const { content, ownerProfile } = this.props;
+    // const { image } = ownerProfile;
     const { like } = this.state;
-    console.log(this.props);
     return (
       <div className="post-comment-container">
         <img
-          src={profile.getProfileById(id).image}
+          src={ownerProfile ? ownerProfile.image : ""}
           className="post-profile-image circle-container mini"
         />
         <span className="post-comment-text">{content}</span>
