@@ -1,0 +1,75 @@
+$inputHeigh: 30px;
+$inputBorderRadius: 5px;
+$marginTop: 10px;
+
+.registerPage {
+  background-color: white;
+  height: 100vh;
+  padding: 0px 20px 0px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .signupText {
+    font-size: 30px;
+    margin-bottom: 12px;
+  }
+
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60px;
+
+    input {
+      padding: 5px;
+      width: 100%;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      box-shadow: none;
+      border: 1px solid #d0d4d6;
+      border-radius: $inputBorderRadius;
+      height: $inputHeigh;
+      outline: none;
+      transition: 0.3s;
+
+      &:focus {
+        border: 1px solid #1977f3;
+        border-radius: $inputBorderRadius;
+      }
+
+      &::placeholder {
+        // color: #d0d4d6;
+      }
+    }
+
+    .InputContain {
+      width: 100%;
+      margin-top: $marginTop;
+    }
+
+    .nameInputContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      .nameInput {
+        width: 48%;
+      }
+    }
+
+    .signupButton {
+      margin-top: $marginTop;
+      width: 100%;
+      border: none;
+      box-shadow: none;
+      background-color: #1977f3;
+      color: white;
+      height: $inputHeigh;
+      border-radius: $inputBorderRadius;
+      outline: none;
+    }
+  }
+}

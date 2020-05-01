@@ -51,16 +51,15 @@ export default class HomePage extends React.Component<MyProps, MyState> {
     } finally {
       const profiles = this.props.profile.getProfilesJS();
       const post = allPost;
-
       post.map(
         (e: any) =>
-          (e["ownerProfile"] = profiles.find((p: any) => p.id == e.id))
+          (e["ownerProfile"] = profiles.find((p: any) => p.id === e.id))
       );
 
       post.map((e: any) =>
         e["comment"].map(
           (c: any) =>
-            (c["ownerProfile"] = profiles.find((p: any) => p.id == c.id))
+            (c["ownerProfile"] = profiles.find((p: any) => p.id === c.id))
         )
       );
 
@@ -129,7 +128,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
 
 const defautlPost = [
   {
-    id: 1,
+    id: "5e93195d47938ea9ece87f26",
     content: "Breaking Newsssss",
     like: 10,
     comment: [
@@ -146,25 +145,25 @@ const defautlPost = [
 
 const allPost = [
   {
-    id: 1,
+    id: "5e93195d47938ea9ece87f26",
     content: "Breaking Newsssss",
     like: 10,
     comment: [
-      { id: 2, content: "hello", like: 0 },
-      { id: 2, content: "eiei", like: 2 },
+      { id: "5e93267bd172cbca9fb193cd", content: "hello", like: 0 },
+      { id: "5e93267bd172cbca9fb193cd", content: "eiei", like: 2 },
     ],
   },
   {
-    id: 2,
+    id: "5e93267bd172cbca9fb193cd",
     content: "Playing Timeeeeeeee",
     like: 15,
     comment: [
-      { id: 1, content: "haha", like: 0 },
-      { id: 3, content: "haha", like: 0 },
+      { id: "5e93195d47938ea9ece87f26", content: "haha", like: 0 },
+      { id: "5e93293d77d2db0f4249b3bb", content: "haha", like: 0 },
     ],
   },
   {
-    id: 3,
+    id: "5e93293d77d2db0f4249b3bb",
     content: "Ya Hu`````````",
     like: 15,
     comment: [],

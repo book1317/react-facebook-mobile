@@ -6,7 +6,7 @@ type MyProps = {
   src?: string;
   content: string;
   like: number;
-  id: number;
+  id: string;
   profile?: any;
   ownerProfile?: any;
 };

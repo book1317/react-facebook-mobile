@@ -33,14 +33,15 @@ export class ProfileStore {
   }
 
   @action
-  setName(name: string) {
-    // this.name = name;
+  async getProfileByAccount(username: string, password: string) {
+    const res = await ProfileAPI.getProfileByAccount(username, password);
+    this.profile = res || this.initSchema();
   }
 
-  // @action
-  // getProfileById(id: number): any {
-  //   return this.PROFILE().find((e: any) => e.id === id);
-  // }
+  @action
+  getProfileByAccountJS() {
+    return toJS(this.profile);
+  }
 
   @action
   async getProfileById(id: number) {
@@ -57,6 +58,7 @@ export class ProfileStore {
   async getProfiles() {
     const res = await ProfileAPI.getProfiles();
     this.profiles = res || this.initSchema();
+    console.log("res====>", res);
   }
 
   @action
@@ -67,13 +69,23 @@ export class ProfileStore {
   PROFILE(): any {
     return [
       {
-        id: 1,
+        id: "5e93195d47938ea9ece87f26",
         firstname: "Raweewat",
         lastname: "Ngeabprasert",
         image: profile1,
       },
-      { id: 2, firstname: "Amornpat", lastname: "Jumpla", image: profile2 },
-      { id: 3, firstname: "Wisarut", lastname: "Kawidam", image: profile3 },
+      {
+        id: "5e93267bd172cbca9fb193cd",
+        firstname: "Amornpat",
+        lastname: "Jumpla",
+        image: profile2,
+      },
+      {
+        id: "5e93293d77d2db0f4249b3bb",
+        firstname: "Wisarut",
+        lastname: "Kawidam",
+        image: profile3,
+      },
     ];
   }
 }

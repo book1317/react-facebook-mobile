@@ -6,9 +6,9 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "mobx-react";
 import { BrowserRouter } from "react-router-dom";
 import Store from "./store/Store";
-
+//basename={window.location.pathname || ""}
 ReactDOM.render(
-  <BrowserRouter basename={window.location.pathname || ""}>
+  <BrowserRouter>
     <Provider {...Store}>
       <App />
     </Provider>

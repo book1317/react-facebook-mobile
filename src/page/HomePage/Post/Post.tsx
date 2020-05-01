@@ -9,7 +9,7 @@ type MyProps = {
   ownerProfile?: any;
   like: number;
   comment: any;
-  id: number;
+  id: string;
 };
 type MyState = { comment: Array<object>; content?: string; like: number };
 
@@ -18,7 +18,7 @@ type MyState = { comment: Array<object>; content?: string; like: number };
 export default class Post extends React.Component<MyProps, MyState> {
   state = {
     like: 0,
-    comment: [{ id: 3, content: "", like: 0 }],
+    comment: [{ id: "5e93293d77d2db0f4249b3bb", content: "", like: 0 }],
   };
 
   componentDidMount() {
