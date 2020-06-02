@@ -17,25 +17,36 @@ export class ProfileStore {
   @observable profiles: IProfile[];
 
   constructor() {
-    this.myProfile = this.initSchema();
-    this.profile = this.initSchema();
-    this.profiles = this.initSchema();
+    this.myProfile = this.initProfileSchema();
+    this.profile = this.initProfileSchema();
+    this.profiles = this.initProfilesSchema();
   }
 
-  initSchema() {
-    // return {
-    //   id: 0,
-    //   firstname: "",
-    //   lastname: "",
-    //   image: "",
-    // };
-    return this.PROFILE()[0];
+  initProfileSchema() {
+    return {
+      id: 0,
+      firstname: "",
+      lastname: "",
+      image: "",
+    };
+  }
+
+  initProfilesSchema() {
+    return [
+      {
+        id: 0,
+        firstname: "",
+        lastname: "",
+        image: "",
+      },
+    ];
+    //return this.PROFILE()[0];
   }
 
   @action
   async getProfileByAccount(username: string, password: string) {
     const res = await ProfileAPI.getProfileByAccount(username, password);
-    this.profile = res || this.initSchema();
+    this.profile = res || this.initProfileSchema();
   }
 
   @action
@@ -46,7 +57,7 @@ export class ProfileStore {
   @action
   async getProfileById(id: number) {
     const res = await ProfileAPI.getProfileByID(id);
-    this.profile = res || this.initSchema();
+    this.profile = res || this.initProfileSchema();
   }
 
   @action
@@ -57,7 +68,7 @@ export class ProfileStore {
   @action
   async getProfiles() {
     const res = await ProfileAPI.getProfiles();
-    this.profiles = res || this.initSchema();
+    this.profiles = res || this.initProfilesSchema();
     console.log("res====>", res);
   }
 

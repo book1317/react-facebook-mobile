@@ -53,13 +53,13 @@ export default class HomePage extends React.Component<MyProps, MyState> {
       const post = allPost;
       post.map(
         (e: any) =>
-          (e["ownerProfile"] = profiles.find((p: any) => p.id === e.id))
+          (e["ownerProfile"] = profiles.find((p: any) => p.id === e.id) || "")
       );
 
       post.map((e: any) =>
         e["comment"].map(
           (c: any) =>
-            (c["ownerProfile"] = profiles.find((p: any) => p.id === c.id))
+            (c["ownerProfile"] = profiles.find((p: any) => p.id === c.id) || "")
         )
       );
 
