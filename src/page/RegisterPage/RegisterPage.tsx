@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import css from "./RegisterPage.module.scss";
 import { Link, withRouter } from "react-router-dom";
+import ProfileAPI from "../../api/ProfileAPI";
 
 type MyProps = { history?: any };
 type MyState = {};
@@ -14,13 +15,15 @@ export class RegisterPage extends Component<MyProps, MyState> {
   };
 
   onClickSignUp = () => {
+    console.log("onClickSignUp");
     const { firstName, lastName, username, password } = this.state;
-    if (firstName && lastName && username && password)
-      this.props.history.push("/login");
+    if (firstName && lastName && username && password) {
+      ProfileAPI.createProfile(firstName, lastName, username, password);
+      // this.props.history.push("/login");
+    }
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className={css.registerPage}>
         <div className={css.inputContainer}>
