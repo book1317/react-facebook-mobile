@@ -45,13 +45,13 @@ class ProfileAPI {
     password: string
   ) {
     try {
+      console.log("Shoot API");
       const data = {
         firstname: firstname,
         lastname: lastname,
         username: username,
         password: password,
       };
-      // console.log(data);
       const res = await axios.post(`http://localhost:8080/register`, data, {
         headers: {
           "Content-Type": "application/json",
@@ -59,6 +59,7 @@ class ProfileAPI {
           "Access-Control-Allow-Headers": "*",
         },
       });
+      console.log("resp api=====>", res.data);
       return res.data;
     } catch (err) {
       console.log(err);

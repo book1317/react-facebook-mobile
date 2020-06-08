@@ -4,24 +4,41 @@ import { Link, withRouter } from "react-router-dom";
 import ProfileAPI from "../../api/ProfileAPI";
 
 type MyProps = { history?: any };
-type MyState = {};
+type MyState = {
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+};
 
 export class RegisterPage extends Component<MyProps, MyState> {
-  state = {
-    firstName: "",
-    lastName: "",
-    username: "",
-    password: "",
-  };
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      firstName: "",
+      lastName: "",
+      username: "",
+      password: "",
+    };
 
-  onClickSignUp = () => {
+    // This binding is necessary to make `this` work in the callback
+    this.onClickSignUp = this.onClickSignUp.bind(this);
+  }
+
+  async onClickSignUp() {
     console.log("onClickSignUp");
     const { firstName, lastName, username, password } = this.state;
     if (firstName && lastName && username && password) {
-      ProfileAPI.createProfile(firstName, lastName, username, password);
+      const resp = await ProfileAPI.createProfile(
+        firstName,
+        lastName,
+        username,
+        password
+      );
+      console.log("resp page=======>", resp);
       // this.props.history.push("/login");
     }
-  };
+  }
 
   render() {
     return (
