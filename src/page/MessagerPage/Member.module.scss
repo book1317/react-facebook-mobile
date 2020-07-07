@@ -1,0 +1,23 @@
+.memberContainer {
+  display: flex;
+  margin-top: 15px;
+
+  .memberImage {
+    border-radius: 50%;
+    width: 70px;
+    margin-right: 10px;
+  }
+
+  .memberText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .memberName {
+      font-weight: 600;
+      font-size: 24px;
+    }
+    .memberLastMessage {
+      font-size: 18px;
+    }
+  }
+}

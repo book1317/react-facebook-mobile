@@ -1,0 +1,42 @@
+.messagerPageContainer {
+  background-color: white;
+  height: 100vh;
+  padding: 0px 20px;
+
+  .headerContainer {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .searchBoxContainer {
+    display: flex;
+    background-color: #eeeef0;
+    border-radius: 10px;
+    height: 40px;
+    width: 100%;
+    overflow: hidden;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    align-items: center;
+
+    .searchIcon {
+      margin-right: 10px;
+    }
+
+    .searchBox {
+      background-color: #eeeef0;
+      border: none;
+      width: 100%;
+      height: 100%;
+      font-size: 18px;
+    }
+
+    .searchBox:focus {
+      outline: none;
+    }
+  }
+}

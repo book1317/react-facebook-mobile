@@ -1,0 +1,7 @@
+{
+  "src": {
+    "common": { "button": {}, "input": {}, "eiei": {}, "huhu": {}, "abd": {} },
+    "page": { "HomePage": {} },
+    "utils": { "generated": { "eiei": { "huhu": {} } } }
+  }
+}
