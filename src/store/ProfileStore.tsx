@@ -3,37 +3,30 @@ import profile1 from "../image/profile1.png";
 import profile2 from "../image/profile2.png";
 import profile3 from "../image/profile3.png";
 import ProfileAPI from "../api/ProfileAPI";
-
-export interface IProfile {
-  id: number;
-  firstname: string;
-  lastname: string;
-  image: string;
-}
+import { IProfile } from "./ProfileStore.d";
+import { IAccount } from "./AuthenStore.d";
 
 export class ProfileStore {
-  @observable myProfile: IProfile;
   @observable profile: IProfile;
   @observable profiles: IProfile[];
   @observable isLogin: boolean;
 
   constructor() {
-    this.myProfile = this.initProfileSchema();
-    this.profile = this.initProfileSchema();
-    this.profiles = this.initProfilesSchema();
-    this.isLogin = true;
+    this.profile = this.initProfile();
+    this.profiles = this.initProfiles();
+    this.isLogin = false;
   }
 
-  initProfileSchema() {
+  initProfile() {
     return {
       id: 0,
-      firstname: "",
-      lastname: "",
+      firstname: "Raweewat",
+      lastname: "Ngeabprasert",
       image: "",
     };
   }
 
-  initProfilesSchema() {
+  initProfiles() {
     return [
       {
         id: 0,
@@ -46,9 +39,14 @@ export class ProfileStore {
   }
 
   @action
-  async getProfileByAccount(username: string, password: string) {
-    const res = await ProfileAPI.getProfileByAccount(username, password);
-    this.profile = res || this.initProfileSchema();
+  setIsLogin(isLogin: boolean) {
+    this.isLogin = isLogin;
+  }
+
+  @action
+  async getProfileByAccount(account: IAccount) {
+    const res = await ProfileAPI.getProfileByAccount(account);
+    this.profile = res || this.initProfile();
   }
 
   @action
@@ -59,7 +57,7 @@ export class ProfileStore {
   @action
   async getProfileById(id: number) {
     const res = await ProfileAPI.getProfileByID(id);
-    this.profile = res || this.initProfileSchema();
+    this.profile = res || this.initProfile();
   }
 
   @action
@@ -70,8 +68,7 @@ export class ProfileStore {
   @action
   async getProfiles() {
     const res = await ProfileAPI.getProfiles();
-    this.profiles = res || this.initProfilesSchema();
-    console.log("res====>", res);
+    this.profiles = res || this.initProfiles();
   }
 
   @action

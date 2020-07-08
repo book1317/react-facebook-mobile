@@ -1,31 +1,13 @@
 import axios from "axios";
 import { IAccount } from "store/AuthenStore.d";
 
-class ProfileAPI {
-  async getProfiles() {
-    try {
-      const res = await axios.get(`http://localhost:8080/profiles`, {});
-      return res.data;
-    } catch (err) {}
-  }
-
-  async getProfileByID(id: number) {
-    try {
-      const res = await axios.get(
-        `http://localhost:8080/get_profiles/${id}`,
-        {}
-      );
-      return res.data;
-    } catch (err) {}
-  }
-
+class AuthenAPI {
   async getProfileByAccount(account: IAccount) {
     try {
       const data = {
         username: account.username,
         password: account.password,
       };
-      // console.log(data);
       const res = await axios.post(`http://localhost:8080/login`, data, {
         headers: {
           "Content-Type": "application/json",
@@ -60,6 +42,7 @@ class ProfileAPI {
           "Access-Control-Allow-Headers": "*",
         },
       });
+      console.log("resp api=====>", res.data);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -67,4 +50,4 @@ class ProfileAPI {
   }
 }
 
-export default new ProfileAPI();
+export default new AuthenAPI();

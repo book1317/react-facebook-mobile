@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect } from "react";
-import { Router, Switch, Route, withRouter } from "react-router-dom";
+import React, { Fragment, lazy } from "react";
+import { Router, Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import history from "utils/History";
 
@@ -29,26 +29,45 @@ class App extends React.Component<MyProps, MyState> {
     };
   }
 
+  LazyMessagerPage = () => lazy(() => import("page/MessagerPage/MessagerPage"));
+
   componentDidMount() {
     document.title = "Facebook";
   }
 
+  componentWillMount() {
+    const token = localStorage["isAuthen"];
+    if (token) this.props.profile.setIsLogin(true);
+  }
+
   render() {
-    return (
-      <Router history={history}>
-        <Fragment>
-          {this.props.profile.isLogin && <Footer />}
-          <Switch>
+    const { isLogin } = this.props.profile;
+
+    if (isLogin)
+      return (
+        <Router history={history}>
+          <Fragment>
+            <Footer />
+            <Switch>
+              <Route path="/profile" component={ProfilePage} />
+              <Route path="/register" component={RegisterPage} />
+              <Route path="/messager" component={MessagerPage} />
+              <Route path="/chat" component={ChatPage} />
+              <Route exact path="/" component={HomePage} />
+              <Redirect to="/" />
+            </Switch>
+          </Fragment>
+        </Router>
+      );
+    else
+      return (
+        <Router history={history}>
+          <Fragment>
             <Route path="/login" component={LoginPage} />
-            <Route path="/profile" component={ProfilePage} />
-            <Route path="/register" component={RegisterPage} />
-            <Route path="/messager" component={MessagerPage} />
-            <Route path="/chat" component={ChatPage} />
-            <Route path="/" component={HomePage} />
-          </Switch>
-        </Fragment>
-      </Router>
-    );
+            <Redirect to="/login" />
+          </Fragment>
+        </Router>
+      );
   }
 }
 

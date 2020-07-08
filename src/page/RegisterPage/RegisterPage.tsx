@@ -22,11 +22,9 @@ export class RegisterPage extends Component<MyProps, MyState> {
     };
 
     // This binding is necessary to make `this` work in the callback
-    this.onClickSignUp = this.onClickSignUp.bind(this);
   }
 
-  async onClickSignUp() {
-    console.log("onClickSignUp");
+  onClickSignUp = async () => {
     const { firstName, lastName, username, password } = this.state;
     if (firstName && lastName && username && password) {
       const resp = await ProfileAPI.createProfile(
@@ -35,10 +33,9 @@ export class RegisterPage extends Component<MyProps, MyState> {
         username,
         password
       );
-      console.log("resp page=======>", resp);
-      // this.props.history.push("/login");
+      this.props.history.push("/login");
     }
-  }
+  };
 
   render() {
     return (

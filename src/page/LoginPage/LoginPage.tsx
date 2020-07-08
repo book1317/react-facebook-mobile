@@ -1,8 +1,8 @@
 import React from "react";
-import "./loginPageStyle.scss";
+import css from "./LoginPage.module.scss";
 import facebook_image from "../../image/facebook.png";
-import { withRouter } from "react-router-dom";
-import { inject, observer } from "mobx-react";
+import { inject } from "mobx-react";
+import { IAccount } from "store/AuthenStore.d";
 
 type MyProps = { history: any; profile: any };
 type MyState = {};
@@ -21,41 +21,45 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
   };
 
   handleLoginClick = () => {
+    const token = "jwtToken";
+    localStorage.setItem("isAuthen", token);
     this.onLogin();
   };
 
-  async onLogin() {
-    // if (this.state.username && this.state.password) {
-    await this.props.profile.getProfileByAccount(
-      this.state.username,
-      this.state.password
-    );
-    this.props.history.push("/");
-    //   }
-  }
+  onLogin = async () => {
+    if (this.state.username && this.state.password) {
+      const account: IAccount = {
+        username: this.state.username,
+        password: this.state.password,
+      };
+      await this.props.profile.getProfileByAccount(account);
+      this.props.profile.setIsLogin(true);
+      this.props.history.push("/");
+    }
+  };
 
   render() {
     return (
-      <div className="login-page">
-        <img className="login-facebook-logo" src={facebook_image} />
+      <div className={css.loginPage}>
+        <img className={css.loginFacebookLogo} src={facebook_image} />
         <input
-          className={"login-input username-input"}
+          className={`${css.loginInput} ${css.userInput}`}
           onChange={(e) => this.setState({ username: e.target.value })}
           onKeyDown={this.handleKeyDown}
           type="string"
         />
         <input
-          className="login-input password-input"
+          className={`${css.loginInput} ${css.passwordInput}`}
           onChange={(e) => this.setState({ password: e.target.value })}
           onKeyDown={this.handleKeyDown}
           type="password"
         />
-        <button onClick={this.handleLoginClick} className="login-button">
+        <button onClick={this.handleLoginClick} className={css.loginButton}>
           Log In
         </button>
-        <div className="login-text-container">
+        <div className={css.loginTextContainer}>
           <div>Sign Up for Facebook</div>
-          <div className="login-bottom-text">Need Help?</div>
+          <div className={css.loginBottomText}>Need Help?</div>
         </div>
       </div>
     );

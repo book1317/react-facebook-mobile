@@ -13,7 +13,7 @@ import {
 import { inject, observer } from "mobx-react";
 import StorySlider from "./Story/StorySlider";
 import Post from "./Post/Post";
-import { IProfile } from "../../store/ProfileStore";
+import { IProfile } from "store/ProfileStore.d";
 // import profile1 from "../../image/profile1.png";
 
 type MyProps = { profile?: any; getProfiles?: any };
@@ -68,7 +68,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
   }
 
   render() {
-    const profile = this.props.profile.myProfile;
+    const profile = this.props.profile.profile;
     //const profiles = this.props.profile.getProfilesJS()
     console.log(this.state.post);
 

@@ -17,7 +17,8 @@ type State = { showFooter: boolean };
 @inject("profile")
 export default class Footer extends React.Component<Props, State> {
   logout = () => {
-    this.props.profile.isLogin = false;
+    this.props.profile.setIsLogin(false);
+    delete localStorage["isAuthen"];
     history.push("/login");
   };
   render() {
@@ -27,9 +28,6 @@ export default class Footer extends React.Component<Props, State> {
           <Link to="/" className="footer-icon">
             <FaHome size={23} color={ICON_COLOR} />
           </Link>
-          {/* <div className="footer-icon">
-            <FaVideo size={23} color={ICON_COLOR} />
-          </div> */}
           <Link to="/messager" className="footer-icon">
             <FaComments size={23} color={ICON_COLOR} />
           </Link>

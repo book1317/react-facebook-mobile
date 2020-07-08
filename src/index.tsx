@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
@@ -10,7 +10,9 @@ import Store from "./store/Store";
 ReactDOM.render(
   <BrowserRouter>
     <Provider {...Store}>
-      <App />
+      <Suspense fallback={<div>Loading....</div>}>
+        <App />
+      </Suspense>
     </Provider>
   </BrowserRouter>,
   document.getElementById("root")

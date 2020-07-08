@@ -1,7 +1,7 @@
-import React from "react";
+import React, { lazy } from "react";
 import css from "./Member.module.scss";
-import profileImage from "../../image/profile1.png";
-import history from "../../utils/History";
+import profileImage from "image/profile1.png";
+import history from "utils/History";
 
 class Member extends React.Component {
   handleClickMember = () => {

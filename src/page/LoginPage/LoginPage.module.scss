@@ -1,4 +1,4 @@
-.login-page {
+.loginPage {
   background-color: #3b5999;
   min-height: 100vh;
   display: flex;
@@ -8,7 +8,7 @@
   color: white;
 }
 
-.login-facebook-logo {
+.loginFacebookLogo {
   width: 60%;
   height: 60%;
   padding-top: 120px;
@@ -16,23 +16,24 @@
 }
 
 $input-radius: 3px;
-.login-input,
-.login-button {
+.loginInput,
+.loginButton {
   width: 83%;
   height: 50px;
   border-width: 0px;
   padding: 0px 10px;
+  box-sizing: border-box;
 
-  &.user-input,
-  &.password-input {
+  &.userInput,
+  &.passwordInput {
     font-size: 15px;
   }
 
-  &.user-input {
+  &.userInput {
     border-radius: $input-radius $input-radius 0px 0px;
     border-width: 0px 0px 1px 0px;
   }
-  &.password-input {
+  &.passwordInput {
     border-radius: 0px 0px $input-radius $input-radius;
   }
   &:focus {
@@ -40,7 +41,7 @@ $input-radius: 3px;
   }
 }
 
-.login-button {
+.loginButton {
   background-color: #4f69a2;
   margin-top: 8px;
   width: 83%;
@@ -54,11 +55,11 @@ $input-radius: 3px;
   line-height: 2.4;
 }
 
-.login-text-container {
+.loginTextContainer {
   margin-top: 90px;
   text-align: center;
 }
 
-.login-bottom-text {
+.loginBottomText {
   margin-top: 25px;
 }
