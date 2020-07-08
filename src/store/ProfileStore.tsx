@@ -15,11 +15,13 @@ export class ProfileStore {
   @observable myProfile: IProfile;
   @observable profile: IProfile;
   @observable profiles: IProfile[];
+  @observable isLogin: boolean;
 
   constructor() {
     this.myProfile = this.initProfileSchema();
     this.profile = this.initProfileSchema();
     this.profiles = this.initProfilesSchema();
+    this.isLogin = true;
   }
 
   initProfileSchema() {

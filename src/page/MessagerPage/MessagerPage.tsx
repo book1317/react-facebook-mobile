@@ -17,6 +17,12 @@ class MessagerPage extends React.Component {
         <Member />
         <Member />
         <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
       </div>
     );
   }

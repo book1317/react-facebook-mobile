@@ -1,0 +1,29 @@
+@mixin messageContainer {
+  margin-top: 10px;
+  display: flex;
+}
+
+@mixin messageBorder {
+  border-radius: 20px;
+  padding: 10px 16px;
+  line-height: 1.2;
+  font-size: 22px;
+}
+
+.myMessageContainer {
+  @include messageContainer;
+  justify-content: flex-end;
+  .messageBorder {
+    @include messageBorder;
+    color: white;
+    background-color: #3f98f3;
+  }
+}
+
+.otherMessageContainer {
+  @include messageContainer;
+  .messageBorder {
+    @include messageBorder;
+    background-color: #f1f1f1;
+  }
+}

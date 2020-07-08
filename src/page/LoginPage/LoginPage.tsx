@@ -1,14 +1,14 @@
 import React from "react";
 import "./loginPageStyle.scss";
 import facebook_image from "../../image/facebook.png";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
 type MyProps = { history: any; profile: any };
 type MyState = {};
 
 @inject("profile")
-class LoginPage extends React.Component<MyProps, MyState> {
+export default class LoginPage extends React.Component<MyProps, MyState> {
   state = {
     username: "",
     password: "",
@@ -25,17 +25,13 @@ class LoginPage extends React.Component<MyProps, MyState> {
   };
 
   async onLogin() {
-    if (this.state.username && this.state.password) {
-      await this.props.profile.getProfileByAccount(
-        this.state.username,
-        this.state.password
-      );
-      this.props.history.push("/");
-    }
-  }
-
-  componentDidMount() {
-    document.title = "Facebook";
+    // if (this.state.username && this.state.password) {
+    await this.props.profile.getProfileByAccount(
+      this.state.username,
+      this.state.password
+    );
+    this.props.history.push("/");
+    //   }
   }
 
   render() {
@@ -54,10 +50,7 @@ class LoginPage extends React.Component<MyProps, MyState> {
           onKeyDown={this.handleKeyDown}
           type="password"
         />
-        <button
-          onClick={() => this.handleLoginClick()}
-          className="login-button"
-        >
+        <button onClick={this.handleLoginClick} className="login-button">
           Log In
         </button>
         <div className="login-text-container">
@@ -68,5 +61,3 @@ class LoginPage extends React.Component<MyProps, MyState> {
     );
   }
 }
-
-export default withRouter(LoginPage as any);
