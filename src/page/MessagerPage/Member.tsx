@@ -2,10 +2,14 @@ import React, { lazy } from "react";
 import css from "./Member.module.scss";
 import profileImage from "image/profile1.png";
 import history from "utils/History";
+import { inject } from "mobx-react";
 
-class Member extends React.Component {
+type Prop = { footer?: any };
+type State = {};
+@inject("footer")
+class Member extends React.Component<Prop, State> {
   handleClickMember = () => {
-    console.log("ClickMember");
+    this.props.footer.isShow = false;
     history.push("/chat");
   };
   render() {

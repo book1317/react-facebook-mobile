@@ -21,8 +21,6 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
   };
 
   handleLoginClick = () => {
-    const token = "jwtToken";
-    localStorage.setItem("isAuthen", token);
     this.onLogin();
   };
 
@@ -33,9 +31,15 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
         password: this.state.password,
       };
       await this.props.profile.getProfileByAccount(account);
+      const token = "jwtToken";
+      localStorage.setItem("isAuthen", token);
       this.props.profile.setIsLogin(true);
       this.props.history.push("/");
     }
+  };
+
+  handleSignUp = () => {
+    this.props.history.push("/register");
   };
 
   render() {
@@ -58,7 +62,7 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
           Log In
         </button>
         <div className={css.loginTextContainer}>
-          <div>Sign Up for Facebook</div>
+          <div onClick={this.handleSignUp}>Sign Up for Facebook</div>
           <div className={css.loginBottomText}>Need Help?</div>
         </div>
       </div>

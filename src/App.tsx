@@ -16,10 +16,11 @@ type MyProps = {
   url?: any;
   history?: any;
   profile?: any;
+  footer?: any;
 };
 type MyState = { showFooter: boolean };
 
-@inject("profile")
+@inject("profile", "footer")
 @observer
 class App extends React.Component<MyProps, MyState> {
   constructor(props?: any) {
@@ -47,10 +48,9 @@ class App extends React.Component<MyProps, MyState> {
       return (
         <Router history={history}>
           <Fragment>
-            <Footer />
+            {this.props.footer.isShow && <Footer />}
             <Switch>
               <Route path="/profile" component={ProfilePage} />
-              <Route path="/register" component={RegisterPage} />
               <Route path="/messager" component={MessagerPage} />
               <Route path="/chat" component={ChatPage} />
               <Route exact path="/" component={HomePage} />
@@ -64,6 +64,7 @@ class App extends React.Component<MyProps, MyState> {
         <Router history={history}>
           <Fragment>
             <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
             <Redirect to="/login" />
           </Fragment>
         </Router>
