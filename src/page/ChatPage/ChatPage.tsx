@@ -48,6 +48,17 @@ class ChatPage extends React.Component<Prop, State> {
     });
   };
 
+  handleLikeClick = () => {
+    const messages = this.state.messages;
+    messages.push({
+      msg: "/like",
+      isMine: true,
+    });
+    this.setState({
+      messages: messages,
+    });
+  };
+
   render() {
     return (
       <div className={css.chatPageContainer}>
@@ -75,7 +86,11 @@ class ChatPage extends React.Component<Prop, State> {
               onChange={(e) => this.setState({ message: e.target.value })}
               placeholder="Aa"
             />
-            <MdThumbUp size={30} color={"#3f98f3"} />
+            <MdThumbUp
+              size={30}
+              color={"#3f98f3"}
+              onClick={this.handleLikeClick}
+            />
           </div>
         </div>
       </div>
