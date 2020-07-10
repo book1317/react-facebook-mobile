@@ -1,14 +1,10 @@
 import React from "react";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { inject, observer } from "mobx-react";
-
+import { IComment } from "store/PostStore.d";
 type MyProps = {
-  src?: string;
-  content: string;
-  like: number;
-  id: string;
+  comment: IComment;
   profile?: any;
-  ownerProfile?: any;
 };
 type MyState = { like: number; count: number };
 
@@ -24,18 +20,19 @@ export default class Comment extends React.Component<MyProps, MyState> {
   }
 
   handleLikeButton = (e?: any) => {
-    this.setState({ like: this.state.like + 1 });
+    if (this.props.comment.isLike) this.setState({ like: this.state.like - 1 });
+    else this.setState({ like: this.state.like + 1 });
+    this.props.comment.isLike = !this.props.comment.isLike;
   };
 
   render() {
-    const { content, ownerProfile } = this.props;
-    // const { image } = ownerProfile;
+    const { content, owner } = this.props.comment;
     const { like } = this.state;
     return (
       <div className="post-comment-container">
         <img
           alt=""
-          src={ownerProfile ? ownerProfile.image : ""}
+          src={owner.image || ""}
           className="post-profile-image circle-container mini"
         />
         <span className="post-comment-text">{content}</span>

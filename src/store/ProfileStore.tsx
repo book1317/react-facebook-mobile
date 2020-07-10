@@ -19,7 +19,7 @@ export class ProfileStore {
 
   initProfile() {
     return {
-      id: 0,
+      id: "",
       firstname: "Raweewat",
       lastname: "Ngeabprasert",
       image: "",
@@ -29,7 +29,7 @@ export class ProfileStore {
   initProfiles() {
     return [
       {
-        id: 0,
+        id: "",
         firstname: "",
         lastname: "",
         image: "",

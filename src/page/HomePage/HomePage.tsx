@@ -12,13 +12,13 @@ import {
 import { inject, observer } from "mobx-react";
 import StorySlider from "./Story/StorySlider";
 import Post from "./Post/Post";
-// import { IProfile } from "store/ProfileStore.d";
+import { IPost } from "store/PostStore.d";
 import profileImage from "image/profile1.png";
 
-type MyProps = { profile?: any; getProfiles?: any };
+type MyProps = { profile?: any; getProfiles?: any; post?: any };
 type MyState = { post?: any; message?: any; data?: any; isLoading: boolean };
 
-@inject("profile")
+@inject("profile", "post")
 @observer
 export default class HomePage extends React.Component<MyProps, MyState> {
   state = {
@@ -69,7 +69,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
   render() {
     const profile = this.props.profile.profile;
     //const profiles = this.props.profile.getProfilesJS()
-    console.log(this.state.post);
+    const post = this.props.post.posts;
 
     return (
       <React.Fragment>
@@ -115,8 +115,10 @@ export default class HomePage extends React.Component<MyProps, MyState> {
               </div>
             </div>
             <StorySlider />
-            {this.state.post &&
-              this.state.post.map((e, index) => <Post {...e} key={index} />)}
+            {post &&
+              post.map((post: IPost, index: number) => (
+                <Post post={post} key={index} />
+              ))}
             <div style={{ marginBottom: 60 }} />
           </div>
         )}
