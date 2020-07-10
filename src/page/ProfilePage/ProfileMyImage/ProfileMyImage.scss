@@ -5,8 +5,10 @@
   text-align: center;
 
   > img {
-    width: 32%;
+    width: calc(32% - 2px);
+    height: 80px;
     padding: 2px;
+    object-fit: cover;
   }
 
   $borderRadius: 10px;

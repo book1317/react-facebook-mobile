@@ -1,8 +1,9 @@
 import React from "react";
-import ProfileFriend from "./ProfileFirend/ProfileFriend";
+import ProfileFriend from "./ProfileFriend/ProfileFriend";
 import ProfileMyImage from "./ProfileMyImage/ProfileMyImage";
 import "./ProfilePage.scss";
 import { inject, observer } from "mobx-react";
+import imageProfile from "image/profile1.png";
 
 type MyProps = { profile?: any };
 
@@ -23,15 +24,14 @@ export default class ProfilePage extends React.Component<MyProps> {
           <img
             alt=""
             className="profile-image"
-            src={this.props.profile.image}
+            src={this.props.profile.image || imageProfile}
           />
         </div>
         <div className="profile-name">
-          <div>Raweewat</div>
-          <div>Ngeabprasert</div>
+          <div>Raweewat Ngeabprasert</div>
         </div>
         <div className="profile-button-container">
-          <button className="story-button">Add Story</button>
+          <button className="story-button">Edit Profile</button>
           <button className="dot-button">...</button>
         </div>
         <div className="profile-detail-container">
