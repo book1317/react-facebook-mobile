@@ -1,5 +1,5 @@
-import { observable, action, toJS } from "mobx";
-import { IAccount } from "./AuthenStore.d";
+import { observable } from "mobx";
+// import { IAccount } from "./AuthenStore.d";
 
 class AuthStore {
   @observable isLogin: boolean;

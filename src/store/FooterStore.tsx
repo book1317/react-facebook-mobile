@@ -1,4 +1,4 @@
-import { observable, action, toJS } from "mobx";
+import { observable } from "mobx";
 
 class FooterStore {
   @observable isShow: boolean;

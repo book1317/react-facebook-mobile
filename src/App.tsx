@@ -28,17 +28,14 @@ class App extends React.Component<MyProps, MyState> {
     this.state = {
       showFooter: true,
     };
+    const token = localStorage["isAuthen"];
+    if (token) this.props.profile.setIsLogin(true);
   }
 
   LazyMessagerPage = () => lazy(() => import("page/MessagerPage/MessagerPage"));
 
   componentDidMount() {
     document.title = "Facebook";
-  }
-
-  componentWillMount() {
-    const token = localStorage["isAuthen"];
-    if (token) this.props.profile.setIsLogin(true);
   }
 
   render() {

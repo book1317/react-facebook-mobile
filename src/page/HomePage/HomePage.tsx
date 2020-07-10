@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import facebook_image from "../../image/logo.png";
 import { Link } from "react-router-dom";
 import "./homePageStyle.scss";
@@ -13,8 +12,8 @@ import {
 import { inject, observer } from "mobx-react";
 import StorySlider from "./Story/StorySlider";
 import Post from "./Post/Post";
-import { IProfile } from "store/ProfileStore.d";
-// import profile1 from "../../image/profile1.png";
+// import { IProfile } from "store/ProfileStore.d";
+import profileImage from "image/profile1.png";
 
 type MyProps = { profile?: any; getProfiles?: any };
 type MyState = { post?: any; message?: any; data?: any; isLoading: boolean };
@@ -32,7 +31,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
   onClickLogin = () => {};
 
   handleKeyDown = (e?: any) => {
-    if (e.key === "Enter" && e.target.value != "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       var joined = this.state.post.concat({
         id: this.props.profile.id,
         content: e.target.value,
@@ -74,12 +73,10 @@ export default class HomePage extends React.Component<MyProps, MyState> {
 
     return (
       <React.Fragment>
-        {this.state.isLoading ? (
-          <div />
-        ) : (
+        {!this.state.isLoading && (
           <div className="home-page">
             <div className="home-header-container">
-              <img className="home-facebook-logo" src={facebook_image} />
+              <img alt="" className="home-facebook-logo" src={facebook_image} />
               <Link className="home-icon-container circle-container" to="/">
                 <FaSearch className="home-header-icon" />
               </Link>
@@ -90,7 +87,8 @@ export default class HomePage extends React.Component<MyProps, MyState> {
             <div className="home-above-content">
               <div className="home-profile-comment-container">
                 <img
-                  src={profile.image}
+                  alt=""
+                  src={profile.image || profileImage}
                   className="circle-container home-profile-image-container"
                 />
                 <input
@@ -117,7 +115,8 @@ export default class HomePage extends React.Component<MyProps, MyState> {
               </div>
             </div>
             <StorySlider />
-            {this.state.post && this.state.post.map((e) => <Post {...e} />)}
+            {this.state.post &&
+              this.state.post.map((e, index) => <Post {...e} key={index} />)}
             <div style={{ marginBottom: 60 }} />
           </div>
         )}

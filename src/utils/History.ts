@@ -1,5 +1,5 @@
 // @ts-ignore
-import config from "config";
+// import config from "config";
 import { createBrowserHistory } from "history";
 
 export class History {

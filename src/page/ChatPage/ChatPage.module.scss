@@ -44,6 +44,11 @@
   .message {
     @include containerPadding;
     padding-top: 70px;
+    padding-bottom: 45px;
+  }
+
+  .scrollingMarker {
+    margin-top: 8px;
   }
 
   .typeBar {
@@ -65,7 +70,6 @@
       input {
         padding: 8px 10px;
         width: 65%;
-        // height: 30px;
         background-color: #f1f1f1;
         border: none;
         border-radius: 15px;

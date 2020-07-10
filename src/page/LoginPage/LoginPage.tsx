@@ -45,7 +45,7 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
   render() {
     return (
       <div className={css.loginPage}>
-        <img className={css.loginFacebookLogo} src={facebook_image} />
+        <img alt="" className={css.loginFacebookLogo} src={facebook_image} />
         <input
           className={`${css.loginInput} ${css.userInput}`}
           onChange={(e) => this.setState({ username: e.target.value })}

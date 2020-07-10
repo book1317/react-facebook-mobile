@@ -3,6 +3,7 @@ import "./postStyle.scss";
 import { FaRegThumbsUp, FaShare, FaRegCommentAlt } from "react-icons/fa";
 import Comment from "./Comment";
 import { inject, observer } from "mobx-react";
+import profileImage from "image/profile2.png";
 
 type MyProps = {
   content?: string;
@@ -26,7 +27,7 @@ export default class Post extends React.Component<MyProps, MyState> {
   }
 
   handleKeyDown = (e?: any) => {
-    if (e.key === "Enter" && e.target.value != "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       var joined = this.state.comment.concat({
         id: this.props.ownerProfile.id,
         content: e.target.value,
@@ -48,7 +49,11 @@ export default class Post extends React.Component<MyProps, MyState> {
     return (
       <div className="home-post-container">
         <div className="post-title-container">
-          <img src={image} className="post-profile-image circle-container" />
+          <img
+            alt=""
+            src={image || profileImage}
+            className="post-profile-image circle-container"
+          />
           <span className="post-profile-name">
             {`${firstname} ${lastname}` || "Profile Name"}
           </span>
@@ -81,8 +86,8 @@ export default class Post extends React.Component<MyProps, MyState> {
           </div>
         </div>
 
-        {this.state.comment.map((e) => (
-          <Comment {...e} />
+        {this.state.comment.map((e, index) => (
+          <Comment {...e} key={index} />
         ))}
 
         <input

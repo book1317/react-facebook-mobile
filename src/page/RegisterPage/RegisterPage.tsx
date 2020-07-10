@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import css from "./RegisterPage.module.scss";
-import { Link, withRouter } from "react-router-dom";
 import ProfileAPI from "../../api/ProfileAPI";
 
 type MyProps = { history?: any };
@@ -27,12 +26,8 @@ export class RegisterPage extends Component<MyProps, MyState> {
   onClickSignUp = async () => {
     const { firstName, lastName, username, password } = this.state;
     if (firstName && lastName && username && password) {
-      const resp = await ProfileAPI.createProfile(
-        firstName,
-        lastName,
-        username,
-        password
-      );
+      // const resp =
+      await ProfileAPI.createProfile(firstName, lastName, username, password);
       this.props.history.push("/login");
     }
   };
@@ -76,4 +71,4 @@ export class RegisterPage extends Component<MyProps, MyState> {
   }
 }
 
-export default withRouter(RegisterPage as any);
+export default RegisterPage;

@@ -1,9 +1,9 @@
 import React from "react";
 import css from "./Message.module.scss";
 
-type Prop = { msg: string; isMine?: boolean };
+type Prop = { msg: string; isMine?: boolean; refer: any };
 type State = {};
-export default class Message extends React.Component<Prop, State> {
+export default class Message extends React.PureComponent<Prop, State> {
   render() {
     if (this.props.isMine)
       return (

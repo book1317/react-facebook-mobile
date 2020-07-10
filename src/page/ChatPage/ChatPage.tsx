@@ -10,19 +10,29 @@ import { MdThumbUp } from "react-icons/md";
 import Message from "./Message";
 
 type Prop = { footer?: any };
-type State = {};
+type State = { message: string; messages: Array<any> };
 @inject("footer")
 class ChatPage extends React.Component<Prop, State> {
-  state = {
-    message: "",
-    messages: [
-      { msg: "hello", isMine: true },
-      { msg: "how are you", isMine: false },
-    ],
-  };
+  messagesEnd: any;
+
+  constructor(props: any) {
+    super(props);
+    this.messagesEnd = React.createRef();
+    this.state = {
+      message: "",
+      messages: [
+        { msg: "hello", isMine: true },
+        { msg: "how are you", isMine: false },
+      ],
+    };
+  }
 
   componentDidMount() {
     this.props.footer.isShow = false;
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   handleBack = () => {
@@ -59,6 +69,10 @@ class ChatPage extends React.Component<Prop, State> {
     });
   };
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
+
   render() {
     return (
       <div className={css.chatPageContainer}>
@@ -66,7 +80,7 @@ class ChatPage extends React.Component<Prop, State> {
           <div className={css.backArrowContainer} onClick={this.handleBack}>
             <RiArrowLeftSLine size={40} />
           </div>
-          <img className={css.profileImage} src={profileImage} />
+          <img alt="" className={css.profileImage} src={profileImage} />
           <div className={css.headerText}>
             <div className={css.name}>Supawit Areeji</div>
             <div className={css.active}>Active 8m ago</div>
@@ -77,6 +91,12 @@ class ChatPage extends React.Component<Prop, State> {
             <Message {...msg} />
           ))}
         </div>
+        <div
+          className={css.scrollingMarker}
+          ref={(el) => {
+            this.messagesEnd = el;
+          }}
+        />
         <div className={css.typeBar}>
           <div className={css.typeBarContainer}>
             <FaImage size={30} color={"#3f98f3"} />

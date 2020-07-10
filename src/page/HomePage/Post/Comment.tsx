@@ -34,6 +34,7 @@ export default class Comment extends React.Component<MyProps, MyState> {
     return (
       <div className="post-comment-container">
         <img
+          alt=""
           src={ownerProfile ? ownerProfile.image : ""}
           className="post-profile-image circle-container mini"
         />
