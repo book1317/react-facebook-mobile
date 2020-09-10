@@ -2,6 +2,7 @@ import React, { Fragment, lazy } from "react";
 import { Router, Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import history from "utils/History";
+import "common/style/global.scss"
 
 import LoginPage from "page/LoginPage/LoginPage";
 import HomePage from "page/HomePage/HomePage";

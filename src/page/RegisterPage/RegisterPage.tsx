@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import css from "./RegisterPage.module.scss";
-import ProfileAPI from "../../api/ProfileAPI";
+import RegisterAPI from 'api/RegisterAPI'
 
 type MyProps = { history?: any };
 type MyState = {
@@ -19,15 +19,14 @@ export class RegisterPage extends Component<MyProps, MyState> {
       username: "",
       password: "",
     };
-
-    // This binding is necessary to make `this` work in the callback
   }
 
   onClickSignUp = async () => {
     const { firstName, lastName, username, password } = this.state;
     if (firstName && lastName && username && password) {
-      // const resp =
-      await ProfileAPI.createProfile(firstName, lastName, username, password);
+      const resp =
+      await RegisterAPI.createProfile(firstName, lastName, username, password);
+      console.log("resp",resp)
       this.props.history.push("/login");
     }
   };
@@ -42,6 +41,7 @@ export class RegisterPage extends Component<MyProps, MyState> {
               className={css.nameInput}
               placeholder="First name"
               onChange={(e) => this.setState({ firstName: e.target.value })}
+              value=""
             />
             <input
               className={css.nameInput}

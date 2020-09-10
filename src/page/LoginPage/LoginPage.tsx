@@ -3,6 +3,7 @@ import css from "./LoginPage.module.scss";
 import facebook_image from "../../image/facebook.png";
 import { inject } from "mobx-react";
 import { IAccount } from "store/AuthenStore.d";
+import LoginAPI from "api/LoginAPI"
 
 type MyProps = { history: any; profile: any };
 type MyState = {};
@@ -25,16 +26,19 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
   };
 
   onLogin = async () => {
-    if (this.state.username && this.state.password) {
+    const { username, password } = this.state
+    if (username && password) {
       const account: IAccount = {
-        username: this.state.username,
-        password: this.state.password,
+        username: username,
+        password: password,
       };
-      await this.props.profile.getProfileByAccount(account);
-      const token = "jwtToken";
-      localStorage.setItem("isAuthen", token);
-      this.props.profile.setIsLogin(true);
-      this.props.history.push("/");
+      // await this.props.profile.getProfileByAccount(account);
+      const resp = await LoginAPI.login(account)
+      console.log("resp", resp)
+      // const token = "jwtToken";
+      // localStorage.setItem("isAuthen", token);
+      // this.props.profile.setIsLogin(true);
+      // this.props.history.push("/");
     }
   };
 
