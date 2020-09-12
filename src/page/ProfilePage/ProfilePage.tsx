@@ -1,48 +1,76 @@
-import React from "react";
-import ProfileFriend from "./ProfileFriend/ProfileFriend";
-import ProfileMyImage from "./ProfileMyImage/ProfileMyImage";
-import "./ProfilePage.scss";
-import { inject, observer } from "mobx-react";
-import imageProfile from "image/profile1.png";
+import React from 'react'
+import ProfileFriend from './ProfileFriend/ProfileFriend'
+import ProfileMyImage from './ProfileMyImage/ProfileMyImage'
+import css from './ProfilePage.module.scss'
+import { inject, observer } from 'mobx-react'
+import imageProfile from 'image/profile1.png'
+import { IProfile, IProfileStore } from 'store/ProfileStore.d'
+import { initProfile } from 'store/ProfileStore'
 
-type MyProps = { profile?: any };
+interface IProfilePageProps {
+  profile: IProfileStore
+}
+interface IProfilePageState {
+  myProfile: IProfile
+}
 
-@inject("profile")
+@inject('profile')
 @observer
-export default class ProfilePage extends React.Component<MyProps> {
+export default class ProfilePage extends React.Component<
+  IProfilePageProps,
+  IProfilePageState
+> {
+  constructor(props: IProfilePageProps) {
+    super(props)
+    this.state = {
+      myProfile: initProfile(),
+    }
+  }
+
+  componentDidMount() {
+    const myProfile = this.props.profile.getProfileJS()
+    console.log('myProfile', myProfile)
+    this.setState({ myProfile })
+  }
+
   render() {
+    const { myProfile } = this.state
     return (
-      <div className="profile-container">
-        <div className="profile-header">Raweewat Ngeabprasert</div>
-        <div className="profile-image-container">
+      <div className={css.container}>
+        <div className={css.header}>
+          {myProfile.firstname} {myProfile.lastname}
+        </div>
+        <div className={css.imageContainer}>
           <img
             alt=""
-            className="profile-timeline"
+            className={css.timeline}
             src={`https://img.huffingtonpost.com/asset/5dcc613f1f00009304dee539.jpeg?cache=QaTFuOj2IM&ops=crop_834_777_4651_2994%2Cscalefit_720_noupscale`}
           />
 
           <img
             alt=""
-            className="profile-image"
-            src={this.props.profile.image || imageProfile}
+            className={css.image}
+            src={myProfile.image || imageProfile}
           />
         </div>
-        <div className="profile-name">
-          <div>Raweewat Ngeabprasert</div>
+        <div className={css.name}>
+          <div>
+            {myProfile.firstname} {myProfile.lastname}
+          </div>
         </div>
-        <div className="profile-button-container">
-          <button className="story-button">Edit Profile</button>
-          <button className="dot-button">...</button>
+        <div className={css.buttonContainer}>
+          <button className={css.storyButton}>Edit Profile</button>
+          <button className={css.dotButton}>...</button>
         </div>
-        <div className="profile-detail-container">
-          <span className="detail-topic">Works at </span>
-          <span className="detail-text">
+        <div className={css.detailContainer}>
+          <span className={css.detailTopic}>Works at </span>
+          <span className={css.detailText}>
             King Mongkut's Institute of Technology Ladkrabang
           </span>
         </div>
         <ProfileMyImage />
         <ProfileFriend />
       </div>
-    );
+    )
   }
 }

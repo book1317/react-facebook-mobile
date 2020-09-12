@@ -1,75 +1,62 @@
-import React from "react";
-import facebook_image from "../../image/logo.png";
-import { Link } from "react-router-dom";
-import "./homePageStyle.scss";
+import React from 'react'
+import facebook_image from '../../image/logo.png'
+import { Link } from 'react-router-dom'
+import './homePageStyle.scss'
 import {
   FaSearch,
   FaFacebookMessenger,
   FaMapMarkerAlt,
   FaVideo,
   FaImages,
-} from "react-icons/fa";
-import { inject, observer } from "mobx-react";
-import StorySlider from "./Story/StorySlider";
-import Post from "./Post/Post";
-import { IPost } from "store/PostStore.d";
-import profileImage from "image/profile1.png";
+} from 'react-icons/fa'
+import { inject, observer } from 'mobx-react'
+import StorySlider from './Story/StorySlider'
+import Post from './Post/Post'
+import { IPost, IPostStore } from 'store/PostStore.d'
+import profileImage from 'image/profile1.png'
 
-type MyProps = { profile?: any; getProfiles?: any; post?: any };
-type MyState = { post?: any; message?: any; data?: any; isLoading: boolean };
+type MyProps = { profile?: any; getProfiles?: any; post: IPostStore }
+type MyState = { post?: any; message?: any; data?: any; isLoading: boolean }
 
-@inject("profile", "post")
+@inject('profile', 'post')
 @observer
 export default class HomePage extends React.Component<MyProps, MyState> {
   state = {
     post: defautlPost,
     isLoading: true,
-    message: "eiei",
+    message: 'eiei',
     currentProfile: this.props.profile.myProfile,
-  };
+  }
 
-  onClickLogin = () => {};
+  onClickLogin = () => {}
 
   handleKeyDown = (e?: any) => {
-    if (e.key === "Enter" && e.target.value !== "") {
+    if (e.key === 'Enter' && e.target.value !== '') {
       var joined = this.state.post.concat({
         id: this.props.profile.id,
         content: e.target.value,
         like: 0,
         comment: [],
         ownerProfile: this.state.currentProfile,
-      });
-      this.setState({ post: joined });
-      e.target.value = "";
+      })
+      this.setState({ post: joined })
+      e.target.value = ''
     }
-  };
+  }
 
   async componentDidMount() {
     try {
-      await this.props.profile.getProfiles();
+      // await this.props.profile.getProfiles()
     } finally {
-      const profiles = this.props.profile.getProfilesJS();
-      const post = allPost;
-      post.map(
-        (e: any) =>
-          (e["ownerProfile"] = profiles.find((p: any) => p.id === e.id) || "")
-      );
+      const post = allPost
 
-      post.map((e: any) =>
-        e["comment"].map(
-          (c: any) =>
-            (c["ownerProfile"] = profiles.find((p: any) => p.id === c.id) || "")
-        )
-      );
-
-      this.setState({ post, isLoading: false });
+      this.setState({ post, isLoading: false })
     }
   }
 
   render() {
-    const profile = this.props.profile.profile;
-    //const profiles = this.props.profile.getProfilesJS()
-    const post = this.props.post.posts;
+    const profile = this.props.profile.profile
+    const posts = this.props.post.getPostsJS()
 
     return (
       <React.Fragment>
@@ -115,58 +102,58 @@ export default class HomePage extends React.Component<MyProps, MyState> {
               </div>
             </div>
             <StorySlider />
-            {post &&
-              post.map((post: IPost, index: number) => (
+            {posts.length > 0 &&
+              posts.map((post: IPost, index: number) => (
                 <Post post={post} key={index} />
               ))}
             <div style={{ marginBottom: 60 }} />
           </div>
         )}
       </React.Fragment>
-    );
+    )
   }
 }
 
 const defautlPost = [
   {
-    id: "5e93195d47938ea9ece87f26",
-    content: "Breaking Newsssss",
+    id: '5e93195d47938ea9ece87f26',
+    content: 'Breaking Newsssss',
     like: 10,
     comment: [
-      { id: 2, content: "hello", like: 0 },
-      { id: 2, content: "eiei", like: 2 },
+      { id: 2, content: 'hello', like: 0 },
+      { id: 2, content: 'eiei', like: 2 },
     ],
     ownerProfile: {
-      firstname: "",
-      lastname: "",
-      image: "",
+      firstname: '',
+      lastname: '',
+      image: '',
     },
   },
-];
+]
 
 const allPost = [
   {
-    id: "5e93195d47938ea9ece87f26",
-    content: "Breaking Newsssss",
+    id: '5e93195d47938ea9ece87f26',
+    content: 'Breaking Newsssss',
     like: 10,
     comment: [
-      { id: "5e93267bd172cbca9fb193cd", content: "hello", like: 0 },
-      { id: "5e93267bd172cbca9fb193cd", content: "eiei", like: 2 },
+      { id: '5e93267bd172cbca9fb193cd', content: 'hello', like: 0 },
+      { id: '5e93267bd172cbca9fb193cd', content: 'eiei', like: 2 },
     ],
   },
   {
-    id: "5e93267bd172cbca9fb193cd",
-    content: "Playing Timeeeeeeee",
+    id: '5e93267bd172cbca9fb193cd',
+    content: 'Playing Timeeeeeeee',
     like: 15,
     comment: [
-      { id: "5e93195d47938ea9ece87f26", content: "haha", like: 0 },
-      { id: "5e93293d77d2db0f4249b3bb", content: "haha", like: 0 },
+      { id: '5e93195d47938ea9ece87f26', content: 'haha', like: 0 },
+      { id: '5e93293d77d2db0f4249b3bb', content: 'haha', like: 0 },
     ],
   },
   {
-    id: "5e93293d77d2db0f4249b3bb",
-    content: "Ya Hu`````````",
+    id: '5e93293d77d2db0f4249b3bb',
+    content: 'Ya Hu`````````',
     like: 15,
     comment: [],
   },
-];
+]

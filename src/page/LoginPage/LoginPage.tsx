@@ -1,29 +1,30 @@
-import React from "react";
-import css from "./LoginPage.module.scss";
-import facebook_image from "../../image/facebook.png";
-import { inject } from "mobx-react";
-import { IAccount } from "store/AuthenStore.d";
-import LoginAPI from "api/LoginAPI"
+import React from 'react'
+import css from './LoginPage.module.scss'
+import facebook_image from '../../image/facebook.png'
+import { inject } from 'mobx-react'
+import { IAccount } from 'store/AuthenStore.d'
+import { IProfile, IProfileStore } from 'store/ProfileStore.d'
+import LoginAPI from 'api/LoginAPI'
 
-type MyProps = { history: any; profile: any };
-type MyState = {};
+type MyProps = { history: any; profile: IProfileStore }
+type MyState = {}
 
-@inject("profile")
+@inject('profile')
 export default class LoginPage extends React.Component<MyProps, MyState> {
   state = {
-    username: "",
-    password: "",
-  };
+    username: '',
+    password: '',
+  }
 
   handleKeyDown = (e?: any) => {
-    if (e.key === "Enter") {
-      this.onLogin();
+    if (e.key === 'Enter') {
+      this.onLogin()
     }
-  };
+  }
 
   handleLoginClick = () => {
-    this.onLogin();
-  };
+    this.onLogin()
+  }
 
   onLogin = async () => {
     const { username, password } = this.state
@@ -31,20 +32,23 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
       const account: IAccount = {
         username: username,
         password: password,
-      };
-      // await this.props.profile.getProfileByAccount(account);
-      const resp = await LoginAPI.login(account)
-      console.log("resp", resp)
-      // const token = "jwtToken";
-      // localStorage.setItem("isAuthen", token);
-      // this.props.profile.setIsLogin(true);
-      // this.props.history.push("/");
+      }
+      const response = await LoginAPI.login(account)
+      if (response) {
+        const token = 'jwtToken'
+        localStorage.setItem('isAuthen', token)
+        this.props.profile.setProfile(response)
+        this.props.profile.setIsLogin(true)
+        this.props.history.push('/')
+      } else {
+        console.log('something went wrong')
+      }
     }
-  };
+  }
 
   handleSignUp = () => {
-    this.props.history.push("/register");
-  };
+    this.props.history.push('/register')
+  }
 
   render() {
     return (
@@ -70,6 +74,6 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
           <div className={css.loginBottomText}>Need Help?</div>
         </div>
       </div>
-    );
+    )
   }
 }

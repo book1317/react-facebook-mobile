@@ -6,19 +6,20 @@ class LoginAPI {
         account: IAccount
     ) {
         try {
-            console.log("Shoot API");
             const data = account
-            console.log("data", data)
-            const res = await axios.post(`http://localhost:8080/login`, data, {
+            const response = await axios.post(`http://localhost:8080/login`, data, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Headers": "*",
                 },
             });
-            return res.data;
-        } catch (err) {
-            console.log(err);
+            return response.data;
+        } catch (error) {
+            // console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+            return '';
         }
     }
 }

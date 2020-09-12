@@ -26,7 +26,7 @@ export default class ProfileFriend extends React.Component {
           <FriendCard />
           <FriendCard />
           <div className={css.seeAllFriendsBtn}>
-            <button>See All Friends</button>
+            <div>See All Friends</div>
           </div>
         </div>
       </div>
