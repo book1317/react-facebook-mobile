@@ -38,6 +38,10 @@ export class ProfileStore implements IProfileStore {
     this.isLogin = isLogin
   }
 
+  getIsLogin() {
+    return this.isLogin
+  }
+
   @action
   async getProfileByAccount(account: IAccount) {
     const res = await ProfileAPI.getProfileByAccount(account)

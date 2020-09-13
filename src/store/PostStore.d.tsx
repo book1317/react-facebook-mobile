@@ -1,11 +1,11 @@
 import { IProfile } from './ProfileStore.d'
 
 export interface IPost {
-  id: string
+  id?: string
   content: string
   like: number
   comments: IComment[]
-  isLike: boolean
+  isLike?: boolean
   owner: IProfile
 }
 
@@ -19,4 +19,6 @@ export interface IComment {
 
 export interface IPostStore {
   getPostsJS: () => IPost[]
+  getPost: () => void
+  createPost: (post: IPost) => any
 }

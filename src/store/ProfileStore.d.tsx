@@ -13,4 +13,5 @@ export interface IProfileStore {
   getProfilesJS: () => IProfile[]
   setProfile: (profile: IProfile) => void
   setIsLogin: (isLogin: boolean) => void
+  getIsLogin: () => boolean
 }

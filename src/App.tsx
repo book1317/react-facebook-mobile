@@ -1,46 +1,55 @@
-import React, { Fragment, lazy } from "react";
-import { Router, Switch, Route, withRouter, Redirect } from "react-router-dom";
-import { inject, observer } from "mobx-react";
-import history from "utils/History";
-import "common/style/global.scss"
+import React, { Fragment, lazy } from 'react'
+import { Router, Switch, Route, withRouter, Redirect } from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
+import history from 'utils/History'
+import 'common/style/global.scss'
 
-import LoginPage from "page/LoginPage/LoginPage";
-import HomePage from "page/HomePage/HomePage";
-import ProfilePage from "page/ProfilePage/ProfilePage";
-import RegisterPage from "page/RegisterPage/RegisterPage";
-import Footer from "components/Footer/Footer";
-import MessagerPage from "page/MessagerPage/MessagerPage";
-import ChatPage from "page/ChatPage/ChatPage";
+import LoginPage from 'page/LoginPage/LoginPage'
+import HomePage from 'page/HomePage/HomePage'
+import ProfilePage from 'page/ProfilePage/ProfilePage'
+import RegisterPage from 'page/RegisterPage/RegisterPage'
+import Footer from 'components/Footer/Footer'
+import MessagerPage from 'page/MessagerPage/MessagerPage'
+import ChatPage from 'page/ChatPage/ChatPage'
+import { IProfileStore } from 'store/ProfileStore.d'
 
 type MyProps = {
-  location?: any;
-  url?: any;
-  history?: any;
-  profile?: any;
-  footer?: any;
-};
-type MyState = { showFooter: boolean };
+  location?: any
+  url?: any
+  history?: any
+  profile: IProfileStore
+  footer?: any
+}
+type MyState = { showFooter: boolean }
 
-@inject("profile", "footer")
+@inject('profile', 'footer')
 @observer
 class App extends React.Component<MyProps, MyState> {
   constructor(props?: any) {
-    super(props);
+    super(props)
     this.state = {
       showFooter: true,
-    };
-    const token = localStorage["isAuthen"];
-    if (token) this.props.profile.setIsLogin(true);
+    }
+    const token = localStorage['isAuthen']
+    if (token) {
+      this.props.profile.setIsLogin(true)
+      const myProfileString = localStorage['myProfile']
+      JSON.parse(myProfileString)
+      if (myProfileString) {
+        const myProfile = JSON.parse(myProfileString)
+        this.props.profile.setProfile(myProfile)
+      }
+    }
   }
 
-  LazyMessagerPage = () => lazy(() => import("page/MessagerPage/MessagerPage"));
+  LazyMessagerPage = () => lazy(() => import('page/MessagerPage/MessagerPage'))
 
   componentDidMount() {
-    document.title = "Facebook";
+    document.title = 'Facebook'
   }
 
   render() {
-    const { isLogin } = this.props.profile;
+    const isLogin = this.props.profile.getIsLogin()
 
     if (isLogin)
       return (
@@ -51,12 +60,13 @@ class App extends React.Component<MyProps, MyState> {
               <Route path="/profile" component={ProfilePage} />
               <Route path="/messager" component={MessagerPage} />
               <Route path="/chat" component={ChatPage} />
+              <Route path="/login" component={LoginPage} />
               <Route exact path="/" component={HomePage} />
               <Redirect to="/" />
             </Switch>
           </Fragment>
         </Router>
-      );
+      )
     else
       return (
         <Router history={history}>
@@ -66,8 +76,8 @@ class App extends React.Component<MyProps, MyState> {
             <Redirect to="/login" />
           </Fragment>
         </Router>
-      );
+      )
   }
 }
 
-export default withRouter(App as any);
+export default withRouter(App as any)

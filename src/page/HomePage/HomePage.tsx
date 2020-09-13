@@ -14,53 +14,66 @@ import StorySlider from './Story/StorySlider'
 import Post from './Post/Post'
 import { IPost, IPostStore } from 'store/PostStore.d'
 import profileImage from 'image/profile1.png'
+import { IProfile, IProfileStore } from 'store/ProfileStore.d'
+import { initProfile } from 'store/ProfileStore'
 
-type MyProps = { profile?: any; getProfiles?: any; post: IPostStore }
-type MyState = { post?: any; message?: any; data?: any; isLoading: boolean }
+type MyProps = { profile: IProfileStore; getProfiles?: any; post: IPostStore }
+type MyState = {
+  posts?: any[]
+  message?: any
+  data?: any
+  isLoading: boolean
+  myProfile?: IProfile
+}
 
 @inject('profile', 'post')
 @observer
 export default class HomePage extends React.Component<MyProps, MyState> {
   state = {
-    post: defautlPost,
+    posts: [],
     isLoading: true,
     message: 'eiei',
-    currentProfile: this.props.profile.myProfile,
+    myProfile: initProfile(),
   }
 
   onClickLogin = () => {}
 
-  handleKeyDown = (e?: any) => {
+  handleKeyDown = async (e?: any) => {
+    const { myProfile, posts } = this.state
     if (e.key === 'Enter' && e.target.value !== '') {
-      var joined = this.state.post.concat({
-        id: this.props.profile.id,
+      const newPostData: IPost = {
         content: e.target.value,
         like: 0,
-        comment: [],
-        ownerProfile: this.state.currentProfile,
-      })
-      this.setState({ post: joined })
-      e.target.value = ''
+        comments: [],
+        owner: myProfile,
+        isLike: false,
+      }
+      console.log('myProfile', myProfile)
+      const newPost = await this.props.post.createPost(newPostData)
+      console.log('newPost', newPost)
+      const newPosts = posts.concat(newPost)
+      // e.target.value = ''
+      this.setState({ posts: newPosts })
     }
   }
 
   async componentDidMount() {
     try {
-      // await this.props.profile.getProfiles()
     } finally {
-      const post = allPost
-
-      this.setState({ post, isLoading: false })
+      await this.props.post.getPost()
+      const posts = this.props.post.getPostsJS()
+      console.log('posts', posts)
+      const myProfile = this.props.profile.getProfileJS()
+      this.setState({ posts, myProfile, isLoading: false })
     }
   }
 
   render() {
-    const profile = this.props.profile.profile
-    const posts = this.props.post.getPostsJS()
+    const { myProfile, posts, isLoading } = this.state
 
     return (
       <React.Fragment>
-        {!this.state.isLoading && (
+        {!isLoading && (
           <div className="home-page">
             <div className="home-header-container">
               <img alt="" className="home-facebook-logo" src={facebook_image} />
@@ -75,7 +88,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
               <div className="home-profile-comment-container">
                 <img
                   alt=""
-                  src={profile.image || profileImage}
+                  src={myProfile.image || profileImage}
                   className="circle-container home-profile-image-container"
                 />
                 <input
@@ -124,6 +137,7 @@ const defautlPost = [
       { id: 2, content: 'eiei', like: 2 },
     ],
     ownerProfile: {
+      id: '',
       firstname: '',
       lastname: '',
       image: '',

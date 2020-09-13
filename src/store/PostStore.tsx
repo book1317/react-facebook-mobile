@@ -1,6 +1,6 @@
 import { observable, toJS } from 'mobx'
 import { IPost } from './PostStore.d'
-
+import PostAPI from 'api/PostAPI'
 class PostStore {
   @observable posts: IPost[]
   constructor() {
@@ -9,6 +9,17 @@ class PostStore {
 
   getPostsJS() {
     return toJS(this.posts)
+  }
+
+  createPost = async (post: IPost) => {
+    const newPost = await PostAPI.createPost(post)
+    return newPost
+  }
+
+  getPost = async () => {
+    const resp = await PostAPI.getPosts()
+    console.log('resp', resp)
+    this.posts = resp || initPost()
   }
 }
 
