@@ -1,5 +1,5 @@
 import { observable, toJS } from 'mobx'
-import { IPost } from './PostStore.d'
+import { IComment, IPost } from './PostStore.d'
 import PostAPI from 'api/PostAPI'
 class PostStore {
   @observable posts: IPost[]
@@ -14,6 +14,11 @@ class PostStore {
   createPost = async (post: IPost) => {
     const newPost = await PostAPI.createPost(post)
     return newPost
+  }
+
+  createComment = async (comment: IComment) => {
+    const newComment = await PostAPI.createComment(comment)
+    return newComment
   }
 
   getPost = async () => {

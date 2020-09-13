@@ -1,35 +1,39 @@
-import React, { Component } from "react";
-import css from "./RegisterPage.module.scss";
+import React, { Component } from 'react'
+import css from './RegisterPage.module.scss'
 import RegisterAPI from 'api/RegisterAPI'
 
-type MyProps = { history?: any };
+type MyProps = { history?: any }
 type MyState = {
-  firstName: string;
-  lastName: string;
-  username: string;
-  password: string;
-};
+  firstName: string
+  lastName: string
+  username: string
+  password: string
+}
 
 export class RegisterPage extends Component<MyProps, MyState> {
   constructor(props: any) {
-    super(props);
+    super(props)
     this.state = {
-      firstName: "",
-      lastName: "",
-      username: "",
-      password: "",
-    };
+      firstName: '',
+      lastName: '',
+      username: '',
+      password: '',
+    }
   }
 
   onClickSignUp = async () => {
-    const { firstName, lastName, username, password } = this.state;
+    const { firstName, lastName, username, password } = this.state
     if (firstName && lastName && username && password) {
-      const resp =
-      await RegisterAPI.createProfile(firstName, lastName, username, password);
-      console.log("resp",resp)
-      this.props.history.push("/login");
+      const resp = await RegisterAPI.createProfile(
+        firstName,
+        lastName,
+        username,
+        password
+      )
+      console.log('resp', resp)
+      this.props.history.push('/login')
     }
-  };
+  }
 
   render() {
     return (
@@ -41,7 +45,6 @@ export class RegisterPage extends Component<MyProps, MyState> {
               className={css.nameInput}
               placeholder="First name"
               onChange={(e) => this.setState({ firstName: e.target.value })}
-              value=""
             />
             <input
               className={css.nameInput}
@@ -67,8 +70,8 @@ export class RegisterPage extends Component<MyProps, MyState> {
           </button>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default RegisterPage;
+export default RegisterPage

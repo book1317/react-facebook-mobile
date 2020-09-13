@@ -40,6 +40,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
 
   handleKeyDown = async (e?: any) => {
     const { myProfile, posts } = this.state
+    console.log('e.value', e.target.value)
     if (e.key === 'Enter' && e.target.value !== '') {
       const newPostData: IPost = {
         content: e.target.value,
@@ -48,11 +49,9 @@ export default class HomePage extends React.Component<MyProps, MyState> {
         owner: myProfile,
         isLike: false,
       }
-      console.log('myProfile', myProfile)
+      e.target.value = ''
       const newPost = await this.props.post.createPost(newPostData)
-      console.log('newPost', newPost)
       const newPosts = posts.concat(newPost)
-      // e.target.value = ''
       this.setState({ posts: newPosts })
     }
   }
@@ -62,7 +61,6 @@ export default class HomePage extends React.Component<MyProps, MyState> {
     } finally {
       await this.props.post.getPost()
       const posts = this.props.post.getPostsJS()
-      console.log('posts', posts)
       const myProfile = this.props.profile.getProfileJS()
       this.setState({ posts, myProfile, isLoading: false })
     }
@@ -116,8 +114,8 @@ export default class HomePage extends React.Component<MyProps, MyState> {
             </div>
             <StorySlider />
             {posts.length > 0 &&
-              posts.map((post: IPost, index: number) => (
-                <Post post={post} key={index} />
+              posts.map((post: IPost) => (
+                <Post postData={post} key={post.id} myProfile={myProfile} />
               ))}
             <div style={{ marginBottom: 60 }} />
           </div>

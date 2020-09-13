@@ -4,50 +4,57 @@ import { FaRegThumbsUp, FaShare, FaRegCommentAlt } from 'react-icons/fa'
 import Comment from './Comment'
 import { inject, observer } from 'mobx-react'
 import profileImage from 'image/profile2.png'
-import { IPost } from 'store/PostStore.d'
+import { IComment, IPost, IPostStore } from 'store/PostStore.d'
+import { IProfile } from 'store/ProfileStore.d'
 
 type MyProps = {
-  post: IPost
+  myProfile: IProfile
+  postData: IPost
+  post?: IPostStore
 }
 type MyState = {}
 
-@inject('profile')
+@inject('profile', 'post')
 @observer
 export default class Post extends React.Component<MyProps, MyState> {
   componentDidMount() {
     // this.setState({ ...this.props });
   }
 
-  handleKeyDown = (e?: any) => {
+  handleKeyDown = (e: any) => {
+    console.log('type of', Object.prototype.toString.call(e))
     if (e.key === 'Enter' && e.target.value !== '') {
       this.onComment(e)
     }
   }
 
-  onComment = (e?: any) => {
-    let comments = this.props.post.comments.concat({
-      id: '1234',
+  onComment = async (e: any) => {
+    const { myProfile, postData } = this.props
+    const newCommentData: IComment = {
       content: e.target.value,
       like: 0,
       isLike: false,
-      owner: this.props.post.owner,
-    })
-    let post = this.props.post
-    post.comments = comments
+      owner: myProfile,
+    }
+    // const newComment = await this.props.post?.createComment(newCommentData)
+    // const newComments = this.props.postData.comments.concat(newComment as any)
+    const newComments = postData.comments.concat(newCommentData as any)
+    postData.comments = newComments
     e.target.value = ''
-    this.setState({ post })
+    this.setState({})
   }
 
   handleLikeButton = (e?: any) => {
-    if (this.props.post.isLike) this.props.post.like--
-    else this.props.post.like++
-    this.props.post.isLike = !this.props.post.isLike
+    const { postData } = this.props
+    if (postData.isLike) postData.like--
+    else postData.like++
+    postData.isLike = !postData.isLike
   }
 
   render() {
-    const { owner, content } = this.props.post
+    const { postData } = this.props
+    const { owner, content, like, comments, isLike } = postData
     const { firstname, lastname, image } = owner
-    const { like, comments, isLike } = this.props.post
     return (
       <div className="home-post-container">
         <div className="post-title-container">
@@ -88,7 +95,7 @@ export default class Post extends React.Component<MyProps, MyState> {
           </div>
         </div>
 
-        {this.props.post.comments.map((comment, index) => (
+        {postData.comments.map((comment, index) => (
           <Comment comment={comment} key={index} />
         ))}
 

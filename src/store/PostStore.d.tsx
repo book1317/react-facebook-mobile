@@ -10,7 +10,7 @@ export interface IPost {
 }
 
 export interface IComment {
-  id: string
+  id?: string
   content: string
   like: number
   isLike: boolean
@@ -21,4 +21,5 @@ export interface IPostStore {
   getPostsJS: () => IPost[]
   getPost: () => void
   createPost: (post: IPost) => any
+  createComment: (comment: IComment) => Promise<IComment>
 }

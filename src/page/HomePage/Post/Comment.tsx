@@ -19,7 +19,7 @@ export default class Comment extends React.Component<MyProps, MyState> {
     }
   }
 
-  handleLikeButton = (e?: any) => {
+  handleLikeButton = (e: any) => {
     if (this.props.comment.isLike) this.setState({ like: this.state.like - 1 })
     else this.setState({ like: this.state.like + 1 })
     this.props.comment.isLike = !this.props.comment.isLike
