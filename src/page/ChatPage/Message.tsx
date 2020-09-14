@@ -1,24 +1,30 @@
-import React from "react";
-import css from "./Message.module.scss";
-import { MdThumbUp } from "react-icons/md";
+import React from 'react'
+import { MdThumbUp } from 'react-icons/md'
+import css from './Message.module.scss'
 
-type Prop = { msg: string; isMine?: boolean; refer: any };
-type State = {};
-export default class Message extends React.PureComponent<Prop, State> {
+interface IMessageProp {
+  message: string
+  isMine?: boolean
+}
+interface IMessageState {}
+export default class Message extends React.PureComponent<
+  IMessageProp,
+  IMessageState
+> {
   render() {
-    const { msg } = this.props;
+    const { message } = this.props
     return (
       <div
         className={
           this.props.isMine ? css.myMessageContainer : css.otherMessageContainer
         }
       >
-        {msg !== "/like" ? (
-          <div className={css.messageBorder}>{msg}</div>
+        {message !== '/like' ? (
+          <div className={css.messageBorder}>{message}</div>
         ) : (
-          <MdThumbUp size={50} color={"#3f98f3"} />
+          <MdThumbUp size={50} color={'#3f98f3'} />
         )}
       </div>
-    );
+    )
   }
 }

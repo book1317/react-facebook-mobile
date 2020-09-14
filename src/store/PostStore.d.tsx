@@ -1,5 +1,4 @@
-import { IProfile } from './ProfileStore.d'
-import { initProfile } from './ProfileStore'
+import { IProfile, initProfile } from './ProfileStore.d'
 
 export interface IPost {
   id?: string
@@ -29,5 +28,5 @@ export const initPost = {
   content: '',
   like: 0,
   isLike: false,
-  owner: initProfile(),
+  owner: initProfile,
 }

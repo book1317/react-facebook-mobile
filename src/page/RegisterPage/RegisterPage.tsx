@@ -30,7 +30,6 @@ export class RegisterPage extends Component<MyProps, MyState> {
         username,
         password
       )
-      console.log('resp', resp)
       this.props.history.push('/login')
     }
   }

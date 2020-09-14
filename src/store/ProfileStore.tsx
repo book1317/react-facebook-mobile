@@ -1,19 +1,10 @@
 import { observable, action, toJS } from 'mobx'
-import profile1 from '../image/profile1.png'
-import profile2 from '../image/profile2.png'
-import profile3 from '../image/profile3.png'
-import ProfileAPI from '../api/ProfileAPI'
-import { IProfile, IProfileStore } from './ProfileStore.d'
+import profile1 from 'image/profile1.png'
+import profile2 from 'image/profile2.png'
+import profile3 from 'image/profile3.png'
+import ProfileAPI from 'api/ProfileAPI'
+import { IProfile, IProfileStore, initProfile } from './ProfileStore.d'
 import { IAccount } from './AuthenStore.d'
-
-export const initProfile = () => {
-  return {
-    id: '',
-    firstname: 'Firstname',
-    lastname: 'Lastname',
-    image: '',
-  }
-}
 
 class ProfileStore implements IProfileStore {
   @observable profile: IProfile
@@ -21,7 +12,7 @@ class ProfileStore implements IProfileStore {
   @observable isLogin: boolean
 
   constructor() {
-    this.profile = initProfile()
+    this.profile = initProfile
     this.profiles = [
       {
         id: '',
@@ -45,7 +36,7 @@ class ProfileStore implements IProfileStore {
   @action
   async getProfileByAccount(account: IAccount) {
     const res = await ProfileAPI.getProfileByAccount(account)
-    this.profile = res || initProfile()
+    this.profile = res || initProfile
   }
 
   @action
@@ -61,7 +52,7 @@ class ProfileStore implements IProfileStore {
   @action
   async getProfileById(id: number) {
     const res = await ProfileAPI.getProfileByID(id)
-    this.profile = res || initProfile()
+    this.profile = res || initProfile
   }
 
   @action
@@ -72,7 +63,7 @@ class ProfileStore implements IProfileStore {
   @action
   async getProfiles() {
     const res = await ProfileAPI.getProfiles()
-    this.profiles = res || initProfile()
+    this.profiles = res || initProfile
   }
 
   @action

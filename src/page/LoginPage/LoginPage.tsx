@@ -2,18 +2,27 @@ import React from 'react'
 import css from './LoginPage.module.scss'
 import facebook_image from '../../image/facebook.png'
 import { inject } from 'mobx-react'
-import { IAccount } from 'store/AuthenStore.d'
-import { IProfile, IProfileStore } from 'store/ProfileStore.d'
+import { IAccount, initAccount } from 'store/AuthenStore.d'
+import { IProfileStore } from 'store/ProfileStore.d'
+import APIName from 'api/APIName'
 import LoginAPI from 'api/LoginAPI'
 
-type MyProps = { history: any; profile: IProfileStore }
-type MyState = {}
+interface ILoginPageProps {
+  history: any
+  profile: IProfileStore
+}
+
+interface ILoginPageState {
+  account: IAccount
+}
 
 @inject('profile')
-export default class LoginPage extends React.Component<MyProps, MyState> {
+export default class LoginPage extends React.Component<
+  ILoginPageProps,
+  ILoginPageState
+> {
   state = {
-    username: '',
-    password: '',
+    account: initAccount,
   }
 
   handleKeyDown = (e?: any) => {
@@ -27,12 +36,8 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
   }
 
   onLogin = async () => {
-    const { username, password } = this.state
-    if (username && password) {
-      const account: IAccount = {
-        username: username,
-        password: password,
-      }
+    const { account } = this.state
+    if (account.username && account.password) {
       const myProfile = await LoginAPI.login(account)
       if (myProfile) {
         const token = 'jwtToken'
@@ -49,7 +54,21 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
   }
 
   handleSignUp = () => {
-    this.props.history.push('/register')
+    this.props.history.push(APIName.register)
+  }
+
+  onUsernameChange = (e: any) => {
+    const { account } = this.state
+    let newAccount = account
+    newAccount.username = e.target.value
+    this.setState({ account: newAccount })
+  }
+
+  onPasswordChange = (e: any) => {
+    const { account } = this.state
+    let newAccount = account
+    newAccount.password = e.target.value
+    this.setState({ account: newAccount })
   }
 
   render() {
@@ -58,13 +77,13 @@ export default class LoginPage extends React.Component<MyProps, MyState> {
         <img alt="" className={css.loginFacebookLogo} src={facebook_image} />
         <input
           className={`${css.loginInput} ${css.userInput}`}
-          onChange={(e) => this.setState({ username: e.target.value })}
+          onChange={this.onUsernameChange}
           onKeyDown={this.handleKeyDown}
           type="string"
         />
         <input
           className={`${css.loginInput} ${css.passwordInput}`}
-          onChange={(e) => this.setState({ password: e.target.value })}
+          onChange={this.onPasswordChange}
           onKeyDown={this.handleKeyDown}
           type="password"
         />

@@ -1,26 +1,31 @@
-import React from "react";
-import { FaHome, FaBell, FaBars, FaComments, FaUserAlt } from "react-icons/fa";
-import "./Footer.scss";
-import { Link } from "react-router-dom";
-import history from "../../utils/History";
-import { inject } from "mobx-react";
+import React from 'react'
+import { inject } from 'mobx-react'
+import { Link } from 'react-router-dom'
+import { FaHome, FaBell, FaBars, FaComments, FaUserAlt } from 'react-icons/fa'
+import './Footer.scss'
+import history from 'utils/History'
+import { IProfileStore } from 'store/ProfileStore.d'
+const ICON_COLOR = '#68686A'
 
-const ICON_COLOR = "#68686A";
+interface IFooterProps {
+  history?: any
+  profile?: IProfileStore
+}
 
-type Props = {
-  location?: any;
-  url?: any;
-  history?: any;
-  profile?: any;
-};
-type State = { showFooter: boolean };
-@inject("profile")
-export default class Footer extends React.Component<Props, State> {
+interface IFooterState {
+  showFooter: boolean
+}
+
+@inject('profile')
+export default class Footer extends React.Component<
+  IFooterProps,
+  IFooterState
+> {
   logout = () => {
-    this.props.profile.setIsLogin(false);
-    delete localStorage["isAuthen"];
-    history.push("/login");
-  };
+    this.props.profile?.setIsLogin(false)
+    delete localStorage['isAuthen']
+    history.push('/login')
+  }
   render() {
     return (
       <div className="footer-container">
@@ -42,6 +47,6 @@ export default class Footer extends React.Component<Props, State> {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

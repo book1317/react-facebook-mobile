@@ -15,3 +15,10 @@ export interface IProfileStore {
   setIsLogin: (isLogin: boolean) => void
   getIsLogin: () => boolean
 }
+
+export const initProfile = {
+  id: '',
+  firstname: '',
+  lastname: '',
+  image: '',
+}

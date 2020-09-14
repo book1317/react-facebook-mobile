@@ -1,16 +1,27 @@
 import React from 'react'
-import { FaRegThumbsUp } from 'react-icons/fa'
 import { inject, observer } from 'mobx-react'
+import { FaRegThumbsUp } from 'react-icons/fa'
+import css from './postStyle.module.scss'
 import { IComment } from 'store/PostStore.d'
-type MyProps = {
+import { IProfile } from 'store/ProfileStore.d'
+import profileImage from 'image/profile1.png'
+
+interface ICommentProps {
   comment: IComment
-  profile?: any
+  profile?: IProfile
 }
-type MyState = { like: number; count: number; isLike: boolean }
+interface ICommentState {
+  like: number
+  count: number
+  isLike: boolean
+}
 
 @inject('profile')
 @observer
-export default class Comment extends React.Component<MyProps, MyState> {
+export default class Comment extends React.Component<
+  ICommentProps,
+  ICommentState
+> {
   constructor(props?: any) {
     super(props)
     this.state = {
@@ -31,21 +42,21 @@ export default class Comment extends React.Component<MyProps, MyState> {
     const { content, owner } = this.props.comment
     const { like } = this.state
     return (
-      <div className="post-comment-container">
+      <div className={css.commentContainer}>
         <img
           alt=""
-          src={owner.image || ''}
-          className="post-profile-image circle-container mini"
+          src={owner.image || profileImage}
+          className={`${css.profileImage} ${css.circleContainer} ${css.mini}`}
         />
-        <span className="post-comment-text">{content}</span>
-        <div className="post-comment-option-container">
-          <div className="post-comment-time-text">1 HOUR AGO</div>
-          <div className="text-after-icon" onClick={this.handleLikeButton}>
+        <span className={css.commentText}>{content}</span>
+        <div className={css.commentOptionContainer}>
+          <div className={css.commentTimeText}>1 HOUR AGO</div>
+          <div className={css.textAfterIcon} onClick={this.handleLikeButton}>
             Like
           </div>
-          <div className="text-after-icon">Reply</div>
-          <FaRegThumbsUp className="text-after-icon" />
-          <div className="text-after-icon">{like}</div>
+          <div className={css.textAfterIcon}>Reply</div>
+          <FaRegThumbsUp className={css.textAfterIcon} />
+          <div className={css.textAfterIcon}>{like}</div>
         </div>
       </div>
     )

@@ -24,7 +24,6 @@ class AuthenAPI {
     password: string
   ) {
     try {
-      console.log('Shoot API')
       const data = {
         firstname: firstname,
         lastname: lastname,

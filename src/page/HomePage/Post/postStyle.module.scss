@@ -1,0 +1,100 @@
+@import 'common/style/mainStyle.scss';
+
+.postContainer {
+  background-color: white;
+  padding: 10px;
+  word-break: break-all;
+  margin-top: 10px;
+  border-bottom: #e5e5ed solid 1px;
+  .textAfterIcon {
+    margin-left: 5px;
+  }
+}
+
+.titleContainer {
+  display: flex;
+}
+
+.profileImage {
+  position: absolute;
+  @include circleImageContainer();
+}
+
+.profileName {
+  margin-left: 50px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.date {
+  margin-left: 50px;
+  font-size: 12px;
+  color: gray;
+}
+
+.content {
+  margin-top: 10px;
+}
+
+.status {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detailFlex {
+  display: flex;
+}
+
+.interactContainer {
+  margin-top: 5px;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e5e5ed;
+
+  .item {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.commentInput {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 10px;
+  border: #e5e5ed solid 1px;
+  width: auto;
+  height: 10px;
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  &:focus {
+    outline-width: 0px;
+  }
+}
+
+.commentContainer {
+  margin: 10px 0px;
+}
+
+.commentText {
+  margin-left: 40px;
+  line-height: 1;
+  background-color: #e5e5ed;
+  border-radius: 15px;
+  padding: 4px 10px;
+  display: inline-block;
+  min-height: 20px;
+}
+
+.commentOptionContainer {
+  display: flex;
+  margin-left: 50px;
+  font-size: 10px;
+}
+
+.commentTimeText {
+  color: gray;
+}

@@ -1,6 +1,6 @@
 import React from 'react'
-import facebook_image from '../../image/logo.png'
 import { Link } from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
 import './homePageStyle.scss'
 import {
   FaSearch,
@@ -9,38 +9,40 @@ import {
   FaVideo,
   FaImages,
 } from 'react-icons/fa'
-import { inject, observer } from 'mobx-react'
+import { IPost, IPostStore } from 'store/PostStore.d'
+import { IProfile, IProfileStore, initProfile } from 'store/ProfileStore.d'
 import StorySlider from './Story/StorySlider'
 import Post from './Post/Post'
-import { IPost, IPostStore } from 'store/PostStore.d'
+import facebook_image from 'image/logo.png'
 import profileImage from 'image/profile1.png'
-import { IProfile, IProfileStore } from 'store/ProfileStore.d'
-import { initProfile } from 'store/ProfileStore'
 
-type MyProps = { profile: IProfileStore; getProfiles?: any; post: IPostStore }
-type MyState = {
-  posts?: any[]
-  message?: any
-  data?: any
+interface IHomePageProps {
+  profile: IProfileStore
+  post: IPostStore
+}
+
+interface IHomePageState {
+  posts: IPost[]
   isLoading: boolean
-  myProfile?: IProfile
+  myProfile: IProfile
 }
 
 @inject('profile', 'post')
 @observer
-export default class HomePage extends React.Component<MyProps, MyState> {
+export default class HomePage extends React.Component<
+  IHomePageProps,
+  IHomePageState
+> {
   state = {
     posts: [],
     isLoading: true,
-    message: 'eiei',
-    myProfile: initProfile(),
+    myProfile: initProfile,
   }
 
   onClickLogin = () => {}
 
   handleKeyDown = async (e?: any) => {
     const { myProfile, posts } = this.state
-    console.log('e.value', e.target.value)
     if (e.key === 'Enter' && e.target.value !== '') {
       const newPostData: IPost = {
         content: e.target.value,

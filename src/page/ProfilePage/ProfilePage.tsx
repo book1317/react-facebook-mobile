@@ -4,8 +4,7 @@ import ProfileMyImage from './ProfileMyImage/ProfileMyImage'
 import css from './ProfilePage.module.scss'
 import { inject, observer } from 'mobx-react'
 import imageProfile from 'image/profile1.png'
-import { IProfile, IProfileStore } from 'store/ProfileStore.d'
-import { initProfile } from 'store/ProfileStore'
+import { IProfile, IProfileStore, initProfile } from 'store/ProfileStore.d'
 
 interface IProfilePageProps {
   profile: IProfileStore
@@ -23,7 +22,7 @@ export default class ProfilePage extends React.Component<
   constructor(props: IProfilePageProps) {
     super(props)
     this.state = {
-      myProfile: initProfile(),
+      myProfile: initProfile,
     }
   }
 
