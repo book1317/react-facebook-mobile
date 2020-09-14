@@ -12,6 +12,7 @@ import Footer from 'components/Footer/Footer'
 import MessagerPage from 'page/MessagerPage/MessagerPage'
 import ChatPage from 'page/ChatPage/ChatPage'
 import { IProfileStore } from 'store/ProfileStore.d'
+import APIName from 'api/APIName'
 
 type MyProps = {
   location?: any
@@ -57,10 +58,10 @@ class App extends React.Component<MyProps, MyState> {
           <Fragment>
             {this.props.footer.isShow && <Footer />}
             <Switch>
-              <Route path="/profile" component={ProfilePage} />
-              <Route path="/messager" component={MessagerPage} />
-              <Route path="/chat" component={ChatPage} />
-              <Route path="/login" component={LoginPage} />
+              <Route path={APIName.profile} component={ProfilePage} />
+              <Route path={APIName.messager} component={MessagerPage} />
+              <Route path={APIName.chat} component={ChatPage} />
+              <Route path={APIName.login} component={LoginPage} />
               <Route exact path="/" component={HomePage} />
               <Redirect to="/" />
             </Switch>
@@ -71,9 +72,9 @@ class App extends React.Component<MyProps, MyState> {
       return (
         <Router history={history}>
           <Fragment>
-            <Route path="/login" component={LoginPage} />
-            <Route path="/register" component={RegisterPage} />
-            <Redirect to="/login" />
+            <Route path={APIName.login} component={LoginPage} />
+            <Route path={APIName.register} component={RegisterPage} />
+            <Redirect to={APIName.login} />
           </Fragment>
         </Router>
       )

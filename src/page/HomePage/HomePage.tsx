@@ -47,7 +47,6 @@ export default class HomePage extends React.Component<MyProps, MyState> {
         like: 0,
         comments: [],
         owner: myProfile,
-        isLike: false,
       }
       e.target.value = ''
       const newPost = await this.props.post.createPost(newPostData)

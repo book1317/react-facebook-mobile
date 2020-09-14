@@ -15,7 +15,7 @@ export const initProfile = () => {
   }
 }
 
-export class ProfileStore implements IProfileStore {
+class ProfileStore implements IProfileStore {
   @observable profile: IProfile
   @observable profiles: IProfile[]
   @observable isLogin: boolean

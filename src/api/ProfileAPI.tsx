@@ -1,22 +1,26 @@
-import axios from "axios";
-import { IAccount } from "store/AuthenStore.d";
+import APIManager from 'api'
+import APIName from './APIName'
+import { IAccount } from 'store/AuthenStore.d'
 
 class ProfileAPI {
   async getProfiles() {
     try {
-      const res = await axios.get(`http://localhost:8080/profiles`, {});
-      return res.data;
-    } catch (err) {}
+      const res = await APIManager.get(`/profiles`)
+      return res.data
+    } catch (err) {
+      console.log(err)
+      return ''
+    }
   }
 
   async getProfileByID(id: number) {
     try {
-      const res = await axios.get(
-        `http://localhost:8080/get_profiles/${id}`,
-        {}
-      );
-      return res.data;
-    } catch (err) {}
+      const res = await APIManager.get(`/get_profiles/${id}`)
+      return res.data
+    } catch (err) {
+      console.log(err)
+      return ''
+    }
   }
 
   async getProfileByAccount(account: IAccount) {
@@ -24,20 +28,14 @@ class ProfileAPI {
       const data = {
         username: account.username,
         password: account.password,
-      };
-      // console.log(data);
-      const res = await axios.post(`http://localhost:8080/login`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-        },
-      });
-      return res.data;
+      }
+      const res = await APIManager.post(APIName.login, data)
+      return res.data
     } catch (err) {
-      console.log(err);
+      console.log(err)
+      return ''
     }
   }
 }
 
-export default new ProfileAPI();
+export default new ProfileAPI()

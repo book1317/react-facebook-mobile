@@ -1,5 +1,6 @@
-import axios from "axios";
-import { IAccount } from "store/AuthenStore.d";
+import APIManager from 'api'
+import APIName from './APIName'
+import { IAccount } from 'store/AuthenStore.d'
 
 class AuthenAPI {
   async getProfileByAccount(account: IAccount) {
@@ -7,17 +8,12 @@ class AuthenAPI {
       const data = {
         username: account.username,
         password: account.password,
-      };
-      const res = await axios.post(`http://localhost:8080/login`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-        },
-      });
-      return res.data;
+      }
+      const response = await APIManager.post(APIName.login, data)
+      return response.data
     } catch (err) {
-      console.log(err);
+      console.log(err)
+      return ''
     }
   }
 
@@ -28,26 +24,19 @@ class AuthenAPI {
     password: string
   ) {
     try {
-      console.log("Shoot API");
+      console.log('Shoot API')
       const data = {
         firstname: firstname,
         lastname: lastname,
         username: username,
         password: password,
-      };
-      const res = await axios.post(`http://localhost:8080/register`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-        },
-      });
-      console.log("resp api=====>", res.data);
-      return res.data;
+      }
+      const response = await APIManager.post(APIName.register, data)
+      return response.data
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   }
 }
 
-export default new AuthenAPI();
+export default new AuthenAPI()

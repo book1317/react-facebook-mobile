@@ -1,19 +1,15 @@
-import axios from 'axios'
+import APIManager from 'api'
+import APIName from './APIName'
 import { IComment, IPost } from 'store/PostStore.d'
 
 class PostAPI {
   async createPost(post: IPost) {
     try {
       const data = post
-      const response = await axios.post(`http://localhost:8080/post`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': '*',
-        },
-      })
+      const response = await APIManager.post(APIName.post, data)
       return response.data
     } catch (error) {
+      console.log('error ===>', error)
       // console.log(error.response.data);
       // console.log(error.response.status);
       // console.log(error.response.headers);
@@ -21,18 +17,14 @@ class PostAPI {
     }
   }
 
-  async createComment(comment: IComment) {
+  async createComment(comment: IComment, PostId: string) {
     try {
       const data = comment
-      const response = await axios.post(`http://localhost:8080/post`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': '*',
-        },
-      })
+      const url = `${APIName.comment}/${PostId}`
+      const response = await APIManager.patch(url, data)
       return response.data
     } catch (error) {
+      console.log('error ===>', error)
       // console.log(error.response.data);
       // console.log(error.response.status);
       // console.log(error.response.headers);
@@ -42,9 +34,12 @@ class PostAPI {
 
   async getPosts() {
     try {
-      const res = await axios.get(`http://localhost:8080/post`, {})
-      return res.data
-    } catch (err) {}
+      const response = await APIManager.get(APIName.post)
+      return response.data
+    } catch (error) {
+      console.log('error ===>', error)
+      return ''
+    }
   }
 }
 

@@ -1,10 +1,11 @@
 import { observable, toJS } from 'mobx'
 import { IComment, IPost } from './PostStore.d'
 import PostAPI from 'api/PostAPI'
+import { initProfile } from './ProfileStore'
 class PostStore {
   @observable posts: IPost[]
   constructor() {
-    this.posts = initPost()
+    this.posts = initPosts()
   }
 
   getPostsJS() {
@@ -16,19 +17,28 @@ class PostStore {
     return newPost
   }
 
-  createComment = async (comment: IComment) => {
-    const newComment = await PostAPI.createComment(comment)
+  createComment = async (comment: IComment, postId: string) => {
+    const newComment = await PostAPI.createComment(comment, postId)
     return newComment
   }
 
   getPost = async () => {
     const resp = await PostAPI.getPosts()
     console.log('resp', resp)
-    this.posts = resp || initPost()
+    this.posts = resp || initPosts()
   }
 }
 
-const initPost = () => [
+export const initPost = () => ({
+  id: '5e93195d47938ea9ece87f26',
+  comments: [],
+  content: 'Breaking Newsssss',
+  like: 0,
+  isLike: false,
+  owner: initProfile(),
+})
+
+const initPosts = () => [
   {
     id: '5e93195d47938ea9ece87f26',
     content: 'Breaking Newsssss',

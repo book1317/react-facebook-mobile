@@ -4,7 +4,7 @@ import { FaRegThumbsUp, FaShare, FaRegCommentAlt } from 'react-icons/fa'
 import Comment from './Comment'
 import { inject, observer } from 'mobx-react'
 import profileImage from 'image/profile2.png'
-import { IComment, IPost, IPostStore } from 'store/PostStore.d'
+import { IComment, IPost, IPostStore, initPost } from 'store/PostStore.d'
 import { IProfile } from 'store/ProfileStore.d'
 
 type MyProps = {
@@ -12,17 +12,25 @@ type MyProps = {
   postData: IPost
   post?: IPostStore
 }
-type MyState = {}
+type MyState = {
+  isLike: boolean
+  post: IPost
+}
 
 @inject('profile', 'post')
 @observer
 export default class Post extends React.Component<MyProps, MyState> {
+  state = {
+    isLike: false,
+    post: initPost,
+  }
+
   componentDidMount() {
-    // this.setState({ ...this.props });
+    const { postData } = this.props
+    this.setState({ post: postData })
   }
 
   handleKeyDown = (e: any) => {
-    console.log('type of', Object.prototype.toString.call(e))
     if (e.key === 'Enter' && e.target.value !== '') {
       this.onComment(e)
     }
@@ -33,27 +41,31 @@ export default class Post extends React.Component<MyProps, MyState> {
     const newCommentData: IComment = {
       content: e.target.value,
       like: 0,
-      isLike: false,
       owner: myProfile,
     }
-    // const newComment = await this.props.post?.createComment(newCommentData)
-    // const newComments = this.props.postData.comments.concat(newComment as any)
-    const newComments = postData.comments.concat(newCommentData as any)
-    postData.comments = newComments
     e.target.value = ''
-    this.setState({})
+    const postId = postData.id || ''
+    const response = await this.props.post?.createComment(
+      newCommentData,
+      postId
+    )
+    const newPost: IPost = response.data
+    if (newPost) {
+      this.setState({ post: newPost })
+    }
   }
 
   handleLikeButton = (e?: any) => {
     const { postData } = this.props
-    if (postData.isLike) postData.like--
+    const { isLike } = this.state
+    if (isLike) postData.like--
     else postData.like++
-    postData.isLike = !postData.isLike
+    this.setState({ isLike: !isLike })
   }
 
   render() {
-    const { postData } = this.props
-    const { owner, content, like, comments, isLike } = postData
+    const { post, isLike } = this.state
+    const { owner, content, like, comments } = post
     const { firstname, lastname, image } = owner
     return (
       <div className="home-post-container">
@@ -64,7 +76,8 @@ export default class Post extends React.Component<MyProps, MyState> {
             className="post-profile-image circle-container"
           />
           <span className="post-profile-name">
-            {(firstname && `${firstname} ${lastname}`) || 'Profile Name'}
+            {(firstname && lastname && `${firstname} ${lastname}`) ||
+              'Profile Name'}
           </span>
         </div>
         <div className="post-date">Yesterday at 12:13</div>
@@ -95,7 +108,7 @@ export default class Post extends React.Component<MyProps, MyState> {
           </div>
         </div>
 
-        {postData.comments.map((comment, index) => (
+        {comments.map((comment, index) => (
           <Comment comment={comment} key={index} />
         ))}
 

@@ -1,5 +1,6 @@
-import axios from "axios";
-import { IRegister } from "store/RegisterStore.d";
+import APIManager from 'api'
+import APIName from './APIName'
+import { IRegister } from 'store/RegisterStore.d'
 
 class RegisterAPI {
   async createProfile(
@@ -9,30 +10,23 @@ class RegisterAPI {
     password: string
   ) {
     try {
-      console.log("Shoot API");
-      const data:IRegister = {
-        profile:{
-        firstname: firstname,
-        lastname: lastname,
+      const data: IRegister = {
+        profile: {
+          firstname: firstname,
+          lastname: lastname,
         },
-        account:{
-        username: username,
-        password: password,
-        }
-      };
-      console.log("data",data)
-      const res = await axios.post(`http://localhost:8080/register`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
+        account: {
+          username: username,
+          password: password,
         },
-      });
-      return res.data;
+      }
+      const response = await APIManager.post(APIName.register, data)
+      return response.data
     } catch (err) {
-      console.log(err);
+      console.log(err)
+      return ''
     }
   }
 }
 
-export default new RegisterAPI();
+export default new RegisterAPI()

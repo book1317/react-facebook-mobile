@@ -6,7 +6,7 @@ type MyProps = {
   comment: IComment
   profile?: any
 }
-type MyState = { like: number; count: number }
+type MyState = { like: number; count: number; isLike: boolean }
 
 @inject('profile')
 @observer
@@ -16,13 +16,15 @@ export default class Comment extends React.Component<MyProps, MyState> {
     this.state = {
       like: props.like || 0,
       count: 0,
+      isLike: false,
     }
   }
 
   handleLikeButton = (e: any) => {
-    if (this.props.comment.isLike) this.setState({ like: this.state.like - 1 })
+    const { isLike } = this.state
+    if (isLike) this.setState({ like: this.state.like - 1 })
     else this.setState({ like: this.state.like + 1 })
-    this.props.comment.isLike = !this.props.comment.isLike
+    this.setState({ isLike: !isLike })
   }
 
   render() {
