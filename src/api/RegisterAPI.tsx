@@ -1,24 +1,15 @@
 import APIManager from 'api'
 import APIName from './APIName'
 import { IRegister } from 'store/RegisterStore.d'
+import { IProfile } from 'store/ProfileStore.d'
+import { IAccount } from 'store/AuthenStore.d'
 
 class RegisterAPI {
-  async createProfile(
-    firstname: string,
-    lastname: string,
-    username: string,
-    password: string
-  ) {
+  async createProfile(profile: IProfile, account: IAccount) {
     try {
       const data: IRegister = {
-        profile: {
-          firstname: firstname,
-          lastname: lastname,
-        },
-        account: {
-          username: username,
-          password: password,
-        },
+        profile,
+        account,
       }
       const response = await APIManager.post(APIName.register, data)
       return response.data

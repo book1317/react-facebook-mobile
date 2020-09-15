@@ -1,7 +1,7 @@
 import { IAccount } from './AuthenStore.d'
 
 export interface IProfile {
-  id: string
+  id?: string
   firstname: string
   lastname: string
   image: string

@@ -74,7 +74,7 @@ class App extends React.Component<MyProps, MyState> {
           <Fragment>
             <Route path={APIName.login} component={LoginPage} />
             <Route path={APIName.register} component={RegisterPage} />
-            <Redirect to={APIName.login} />
+            {/* <Redirect to={APIName.login} /> */}
           </Fragment>
         </Router>
       )
