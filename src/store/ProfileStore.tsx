@@ -9,6 +9,7 @@ import { IAccount } from './AuthenStore.d'
 class ProfileStore implements IProfileStore {
   @observable profile: IProfile
   @observable profiles: IProfile[]
+  @observable otherProfiles: IProfile[]
   @observable isLogin: boolean
 
   constructor() {
@@ -22,6 +23,7 @@ class ProfileStore implements IProfileStore {
       },
     ]
     this.isLogin = false
+    this.otherProfiles = []
   }
 
   @action
@@ -50,9 +52,18 @@ class ProfileStore implements IProfileStore {
   }
 
   @action
-  async getProfileById(id: number) {
+  async getOtherProfileById(id: string) {
     const res = await ProfileAPI.getProfileByID(id)
-    this.profile = res || initProfile
+    if (res) {
+      this.otherProfiles.push(res.data)
+    }
+    return res.data
+  }
+
+  @action
+  getOtherProfilesJs() {
+    // console.log('this.otherProfiles', toJS(this.otherProfiles))
+    return toJS(this.otherProfiles)
   }
 
   @action

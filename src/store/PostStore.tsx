@@ -5,7 +5,7 @@ import PostAPI from 'api/PostAPI'
 class PostStore {
   @observable posts: IPost[]
   constructor() {
-    this.posts = initPosts()
+    this.posts = []
   }
 
   getPostsJS() {

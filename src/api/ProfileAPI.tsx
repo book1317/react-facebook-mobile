@@ -13,9 +13,9 @@ class ProfileAPI {
     }
   }
 
-  async getProfileByID(id: number) {
+  async getProfileByID(id: string) {
     try {
-      const res = await APIManager.get(`/get_profiles/${id}`)
+      const res = await APIManager.get(`/profile/${id}`)
       return res.data
     } catch (err) {
       console.log(err)

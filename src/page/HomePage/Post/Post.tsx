@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { FaRegThumbsUp, FaShare, FaRegCommentAlt } from 'react-icons/fa'
 import css from './postStyle.module.scss'
-import { IComment, IPost, IPostStore, initPost } from 'store/PostStore.d'
-import { IProfile } from 'store/ProfileStore.d'
+import {
+  IComment,
+  IPost,
+  IPostStore,
+  initPost,
+  initComment,
+} from 'store/PostStore.d'
+import { initProfile, IProfile, IProfileStore } from 'store/ProfileStore.d'
 import Comment from './Comment'
 import profileImage from 'image/profile1.png'
 
 interface IPostProps {
+  profile?: IProfileStore
   myProfile: IProfile
   postData: IPost
   post?: IPostStore
@@ -16,19 +23,30 @@ interface IPostProps {
 interface IPostState {
   isLike: boolean
   post: IPost
+  ownerProfile: IProfile
 }
 
 @inject('profile', 'post')
 @observer
-export default class Post extends React.Component<IPostProps, IPostState> {
+export default class Post extends Component<IPostProps, IPostState> {
   state = {
     isLike: false,
     post: initPost,
+    ownerProfile: initProfile,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { postData } = this.props
-    this.setState({ post: postData })
+    const ownerProfile =
+      (await this.props.profile?.getOtherProfileById(postData.owner_id)) ||
+      initProfile
+    this.setState({ post: postData, ownerProfile })
+  }
+
+  getOwnerProfileById = (owner_id: string) => {
+    const profiles = this.props.profile?.getOtherProfilesJs()
+    const ownerProfile = profiles?.find((profile) => profile.id === owner_id)
+    return ownerProfile
   }
 
   handleKeyDown = (e: any) => {
@@ -39,11 +57,10 @@ export default class Post extends React.Component<IPostProps, IPostState> {
 
   onComment = async (e: any) => {
     const { myProfile, postData } = this.props
-    const newCommentData: IComment = {
-      content: e.target.value,
-      like: 0,
-      owner: myProfile,
-    }
+    let newCommentData: IComment = initComment
+    newCommentData.content = e.target.value
+    newCommentData.owner_id = myProfile.id || ''
+
     e.target.value = ''
     const postId = postData.id || ''
     const response = await this.props.post?.createComment(
@@ -65,9 +82,10 @@ export default class Post extends React.Component<IPostProps, IPostState> {
   }
 
   render() {
-    const { post, isLike } = this.state
-    const { owner, content, like, comments } = post
-    const { firstname, lastname, image } = owner
+    const { post, isLike, ownerProfile } = this.state
+    const { content, like, comments } = post
+    const { firstname, lastname, image } = ownerProfile
+
     return (
       <div className={css.postContainer}>
         <div className={css.titleContainer}>

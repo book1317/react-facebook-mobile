@@ -9,6 +9,8 @@ export interface IProfile {
 
 export interface IProfileStore {
   getProfileByAccount: (account: IAccount) => void
+  getOtherProfileById: (id: string) => Promise<IProfile>
+  getOtherProfilesJs: () => IProfile[]
   getProfileJS: () => IProfile
   getProfilesJS: () => IProfile[]
   setProfile: (profile: IProfile) => void

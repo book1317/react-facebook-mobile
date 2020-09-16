@@ -3,17 +3,18 @@ import { inject, observer } from 'mobx-react'
 import { FaRegThumbsUp } from 'react-icons/fa'
 import css from './postStyle.module.scss'
 import { IComment } from 'store/PostStore.d'
-import { IProfile } from 'store/ProfileStore.d'
+import { initProfile, IProfile, IProfileStore } from 'store/ProfileStore.d'
 import profileImage from 'image/profile1.png'
 
 interface ICommentProps {
   comment: IComment
-  profile?: IProfile
+  profile?: IProfileStore
 }
 interface ICommentState {
   like: number
   count: number
   isLike: boolean
+  ownerProfile: IProfile
 }
 
 @inject('profile')
@@ -28,7 +29,16 @@ export default class Comment extends React.Component<
       like: props.like || 0,
       count: 0,
       isLike: false,
+      ownerProfile: initProfile,
     }
+  }
+
+  async componentDidMount() {
+    const { comment } = this.props
+    const ownerProfile =
+      (await this.props.profile?.getOtherProfileById(comment.owner_id)) ||
+      initProfile
+    this.setState({ ownerProfile })
   }
 
   handleLikeButton = (e: any) => {
@@ -39,13 +49,13 @@ export default class Comment extends React.Component<
   }
 
   render() {
-    const { content, owner } = this.props.comment
-    const { like } = this.state
+    const { content } = this.props.comment
+    const { like, ownerProfile } = this.state
     return (
       <div className={css.commentContainer}>
         <img
           alt=""
-          src={owner.image || profileImage}
+          src={ownerProfile.image || profileImage}
           className={`${css.profileImage} ${css.circleContainer} ${css.mini}`}
         />
         <span className={css.commentText}>{content}</span>

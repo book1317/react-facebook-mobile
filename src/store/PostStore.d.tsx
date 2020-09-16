@@ -1,18 +1,16 @@
-import { IProfile, initProfile } from './ProfileStore.d'
-
 export interface IPost {
   id?: string
   content: string
   like: number
   comments: IComment[]
-  owner: IProfile
+  owner_id: string
 }
 
 export interface IComment {
   id?: string
   content: string
   like: number
-  owner: IProfile
+  owner_id: string
 }
 
 export interface IPostStore {
@@ -23,10 +21,14 @@ export interface IPostStore {
 }
 
 export const initPost = {
-  id: '',
   comments: [],
   content: '',
   like: 0,
-  isLike: false,
-  owner: initProfile,
+  owner_id: '',
+}
+
+export const initComment = {
+  content: '',
+  like: 0,
+  owner_id: '',
 }

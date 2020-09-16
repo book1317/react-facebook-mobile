@@ -9,7 +9,7 @@ import {
   FaVideo,
   FaImages,
 } from 'react-icons/fa'
-import { IPost, IPostStore } from 'store/PostStore.d'
+import { initPost, IPost, IPostStore } from 'store/PostStore.d'
 import { IProfile, IProfileStore, initProfile } from 'store/ProfileStore.d'
 import StorySlider from './Story/StorySlider'
 import Post from './Post/Post'
@@ -44,16 +44,15 @@ export default class HomePage extends React.Component<
   handleKeyDown = async (e?: any) => {
     const { myProfile, posts } = this.state
     if (e.key === 'Enter' && e.target.value !== '') {
-      const newPostData: IPost = {
-        content: e.target.value,
-        like: 0,
-        comments: [],
-        owner: myProfile,
-      }
+      let newPostData = initPost
+      newPostData.content = e.target.value
+      newPostData.owner_id = myProfile.id
       e.target.value = ''
       const newPost = await this.props.post.createPost(newPostData)
       const newPosts = posts.concat(newPost)
-      this.setState({ posts: newPosts })
+      if (newPost) {
+        this.setState({ posts: newPosts })
+      }
     }
   }
 

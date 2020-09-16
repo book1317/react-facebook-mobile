@@ -34,7 +34,11 @@ export class RegisterPage extends Component<
       const profile: IProfile = { firstname, lastname, image }
       const account: IAccount = { username, password }
       const response = await RegisterAPI.createProfile(profile, account)
-      this.props.history.push('/login')
+      if (response) {
+        this.props.history.push('/login')
+      } else {
+        console.log('something went wrong')
+      }
     }
   }
 
