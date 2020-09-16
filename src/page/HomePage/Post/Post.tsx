@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { FaRegThumbsUp, FaShare, FaRegCommentAlt } from 'react-icons/fa'
 import css from './postStyle.module.scss'
+import history from 'utils/History'
 import {
   IComment,
   IPost,
@@ -81,6 +82,11 @@ export default class Post extends Component<IPostProps, IPostState> {
     this.setState({ isLike: !isLike })
   }
 
+  gotoOtherProfile = () => {
+    const ownerId = this.state.ownerProfile.id
+    history.push('/profile/' + ownerId)
+  }
+
   render() {
     const { post, isLike, ownerProfile } = this.state
     const { content, like, comments } = post
@@ -93,6 +99,7 @@ export default class Post extends Component<IPostProps, IPostState> {
             alt=""
             src={image || profileImage}
             className={`${css.profileImage} ${css.circleContainer}`}
+            onClick={this.gotoOtherProfile}
           />
           <span className={css.profileName}>
             {(firstname && lastname && `${firstname} ${lastname}`) ||

@@ -8,20 +8,15 @@ import { IAccount } from './AuthenStore.d'
 
 class ProfileStore implements IProfileStore {
   @observable profile: IProfile
+  @observable myProfile: IProfile
   @observable profiles: IProfile[]
   @observable otherProfiles: IProfile[]
   @observable isLogin: boolean
 
   constructor() {
     this.profile = initProfile
-    this.profiles = [
-      {
-        id: '',
-        firstname: '',
-        lastname: '',
-        image: '',
-      },
-    ]
+    this.myProfile = initProfile
+    this.profiles = []
     this.isLogin = false
     this.otherProfiles = []
   }
@@ -42,8 +37,13 @@ class ProfileStore implements IProfileStore {
   }
 
   @action
-  async setProfile(profile: IProfile) {
-    this.profile = profile
+  async setMyProfile(profile: IProfile) {
+    this.myProfile = profile
+  }
+
+  @action
+  getMyProfileJS() {
+    return toJS(this.myProfile)
   }
 
   @action
@@ -64,6 +64,14 @@ class ProfileStore implements IProfileStore {
   getOtherProfilesJs() {
     // console.log('this.otherProfiles', toJS(this.otherProfiles))
     return toJS(this.otherProfiles)
+  }
+
+  @action
+  async getProfileById(id: string) {
+    try {
+      let res = await ProfileAPI.getProfileByID(id)
+      this.profile = res.data
+    } catch {}
   }
 
   @action

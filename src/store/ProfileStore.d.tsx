@@ -11,9 +11,11 @@ export interface IProfileStore {
   getProfileByAccount: (account: IAccount) => void
   getOtherProfileById: (id: string) => Promise<IProfile>
   getOtherProfilesJs: () => IProfile[]
+  getProfileById: (id: string) => void
   getProfileJS: () => IProfile
   getProfilesJS: () => IProfile[]
-  setProfile: (profile: IProfile) => void
+  getMyProfileJS: () => IProfile
+  setMyProfile: (profile: IProfile) => void
   setIsLogin: (isLogin: boolean) => void
   getIsLogin: () => boolean
 }

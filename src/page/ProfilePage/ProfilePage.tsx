@@ -5,9 +5,12 @@ import css from './ProfilePage.module.scss'
 import { inject, observer } from 'mobx-react'
 import imageProfile from 'image/profile1.png'
 import { IProfile, IProfileStore, initProfile } from 'store/ProfileStore.d'
+import history from 'utils/History'
+import qs from 'qs'
 
 interface IProfilePageProps {
   profile: IProfileStore
+  location?: any
 }
 interface IProfilePageState {
   myProfile: IProfile
@@ -26,9 +29,22 @@ export default class ProfilePage extends React.Component<
     }
   }
 
-  componentDidMount() {
-    const myProfile = this.props.profile.getProfileJS()
-    console.log('myProfile', myProfile)
+  async componentDidMount() {
+    console.log('dimount')
+    const pathname = history.location.pathname
+    const splitPathname = pathname.split('/')
+
+    let myProfile = this.props.profile.getMyProfileJS()
+    if (splitPathname.length > 2) {
+      const profileId = splitPathname.slice(-1)[0]
+      await this.props.profile.getProfileById(profileId)
+      myProfile = this.props.profile.getProfileJS()
+    }
+
+    // const param = qs.parse(this.props.location.search, {
+    //   ignoreQueryPrefix: true,
+    // })
+
     this.setState({ myProfile })
   }
 

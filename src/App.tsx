@@ -38,7 +38,7 @@ class App extends React.Component<MyProps, MyState> {
       JSON.parse(myProfileString)
       if (myProfileString) {
         const myProfile = JSON.parse(myProfileString)
-        this.props.profile.setProfile(myProfile)
+        this.props.profile.setMyProfile(myProfile)
       }
     }
   }

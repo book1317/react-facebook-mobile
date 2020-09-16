@@ -48,7 +48,7 @@ export default class LoginPage extends React.Component<
       lastname: 'Ngeabprasert',
       image: '',
     }
-    this.props.profile.setProfile(myProfile)
+    this.props.profile.setMyProfile(myProfile)
     this.props.profile.setIsLogin(true)
     this.props.history.replace('/')
   }
@@ -62,7 +62,7 @@ export default class LoginPage extends React.Component<
         const myProfileString = JSON.stringify(myProfile)
         localStorage.setItem('isAuthen', token)
         localStorage.setItem('myProfile', myProfileString)
-        this.props.profile.setProfile(myProfile)
+        this.props.profile.setMyProfile(myProfile)
         this.props.profile.setIsLogin(true)
         this.props.history.replace('/')
       } else {

@@ -1,11 +1,11 @@
 // @ts-ignore
 // import config from "config";
-import { createBrowserHistory } from "history";
+import { createBrowserHistory } from 'history'
 
 export class History {
   getObject() {
     // return createBrowserHistory({ basename: config.prefixUrl });
-    return createBrowserHistory({ basename: "/" });
+    return createBrowserHistory({ basename: '/' })
   }
 
   // replace(url: string) {
@@ -19,12 +19,12 @@ export class History {
   push(url: string) {
     const historyObj = createBrowserHistory({
       // basename: config.prefixUrl,
-      basename: "/",
+      basename: '/',
       forceRefresh: true,
-    });
-    historyObj.push(url);
+    })
+    historyObj.push(url)
   }
 }
 
-export const history = new History();
-export default history.getObject();
+export const history = new History()
+export default history.getObject()
