@@ -6,8 +6,7 @@ pipeline {
     stages {
         stage('Cloning Git') {
             steps {
-                notifyLINE('bot-hr-web is deploying', true)
-                git branch: 'develop', credentialsId: '96663abe-86f6-4e12-8036-67462137efc6', url: 'https://gitlab.com/first-blood/cupid-web.git'
+                git branch: 'master', url: 'https://github.com/book1317/react-facebook-mobile.git'
             }
         }
         stage('Install Dependencies') {
@@ -33,14 +32,14 @@ pipeline {
         }
         stage('Upload') {
             steps {
-                sh 'scp ./latest.tar.gz ubuntu@ec2-13-229-233-123.ap-southeast-1.compute.amazonaws.com:./cupid-web/'
+                sh 'scp -i ~/.ssh/hello_world ./latest.tar.gz raweewat.n@35.247.128.88:./react-facebook'
             }
         }
         stage('Deploy') {
             steps {
                 sh '''
-                    ssh ubuntu@ec2-13-229-233-123.ap-southeast-1.compute.amazonaws.com '
-                        cd ./bot-hr-web
+                    ssh -i hello_world 35.247.128.88 '
+                        cd ./react-facebook
                         tar xvzf latest.tar.gz
                         cd ./docker
                         docker-compose down
