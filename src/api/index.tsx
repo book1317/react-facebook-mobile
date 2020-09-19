@@ -1,5 +1,6 @@
 import config from 'config'
 import axios from 'axios'
+import humps from 'humps'
 
 const baseURL = config.baseURL
 const headers = {
@@ -13,9 +14,11 @@ const headers = {
 class APIManager {
   post = async (path: string, data: any) => {
     try {
+      const jsonPayload = humps.decamelizeKeys(data)
       const url = `${baseURL}${path}`
-      const response = await axios.post(url, data, headers)
-      return response
+      const response = await axios.post(url, jsonPayload, headers)
+      const json = humps.camelizeKeys(response.data)
+      return json
     } catch (err) {
       console.log('post error ====>', err)
       return err
@@ -24,9 +27,11 @@ class APIManager {
 
   put = async (path: string, data: any) => {
     try {
+      const jsonPayload = humps.decamelizeKeys(data)
       const url = `${baseURL}${path}`
-      const response = await axios.put(url, data, headers)
-      return response
+      const response = await axios.put(url, jsonPayload, headers)
+      const json = humps.camelizeKeys(response.data)
+      return json
     } catch (err) {
       console.log('post error ====>', err)
       return err
@@ -35,9 +40,11 @@ class APIManager {
 
   patch = async (path: string, data: any) => {
     try {
+      const jsonPayload = humps.decamelizeKeys(data)
       const url = `${baseURL}${path}`
-      const response = await axios.patch(url, data, headers)
-      return response
+      const response = await axios.patch(url, jsonPayload, headers)
+      const json = humps.camelizeKeys(response.data)
+      return json
     } catch (err) {
       console.log('post error ====>', err)
       return err
@@ -48,7 +55,8 @@ class APIManager {
     try {
       const url = `${baseURL}${path}`
       const response = await axios.get(url, headers)
-      return response
+      const json = humps.camelizeKeys(response.data)
+      return json
     } catch (err) {
       console.log('get error ====>', err)
       return err

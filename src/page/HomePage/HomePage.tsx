@@ -46,7 +46,7 @@ export default class HomePage extends React.Component<
     if (e.key === 'Enter' && e.target.value !== '') {
       let newPostData = initPost
       newPostData.content = e.target.value
-      newPostData.owner_id = myProfile.id
+      newPostData.ownerId = myProfile.id
       e.target.value = ''
       const newPost = await this.props.post.createPost(newPostData)
       const newPosts = posts.concat(newPost)

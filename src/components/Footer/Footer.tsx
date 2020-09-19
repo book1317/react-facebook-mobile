@@ -36,9 +36,15 @@ export default class Footer extends React.Component<
           <Link to="/messager" className="footer-icon">
             <FaComments size={23} color={ICON_COLOR} />
           </Link>
-          <Link to="/profile" className="footer-icon">
+          <div
+            onClick={() => {
+              history.push('/profile')
+              window.location.reload(false)
+            }}
+            className="footer-icon"
+          >
             <FaUserAlt size={23} color={ICON_COLOR} />
-          </Link>
+          </div>
           <div className="footer-icon">
             <FaBell size={23} color={ICON_COLOR} />
           </div>

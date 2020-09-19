@@ -37,7 +37,7 @@ export default class Comment extends React.Component<
   async componentDidMount() {
     const { comment } = this.props
     const ownerProfile =
-      (await this.props.profile?.getOtherProfileById(comment.owner_id)) ||
+      (await this.props.profile?.getOtherProfileById(comment.ownerId)) ||
       initProfile
     this.setState({ ownerProfile })
   }

@@ -74,7 +74,7 @@ export default class ProfilePage extends React.Component<
           </div>
         </div>
         <div className={css.buttonContainer}>
-          <button className={css.storyButton}>Edit Profile</button>
+          <button className={css.storyButton}>Add Friend</button>
           <button className={css.dotButton}>...</button>
         </div>
         <div className={css.detailContainer}>

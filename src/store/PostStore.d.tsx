@@ -3,14 +3,14 @@ export interface IPost {
   content: string
   like: number
   comments: IComment[]
-  owner_id: string
+  ownerId: string
 }
 
 export interface IComment {
   id?: string
   content: string
   like: number
-  owner_id: string
+  ownerId: string
 }
 
 export interface IPostStore {
@@ -24,11 +24,11 @@ export const initPost = {
   comments: [],
   content: '',
   like: 0,
-  owner_id: '',
+  ownerId: '',
 }
 
 export const initComment = {
   content: '',
   like: 0,
-  owner_id: '',
+  ownerId: '',
 }

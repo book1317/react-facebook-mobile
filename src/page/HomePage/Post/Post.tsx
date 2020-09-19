@@ -39,14 +39,14 @@ export default class Post extends Component<IPostProps, IPostState> {
   async componentDidMount() {
     const { postData } = this.props
     const ownerProfile =
-      (await this.props.profile?.getOtherProfileById(postData.owner_id)) ||
+      (await this.props.profile?.getOtherProfileById(postData.ownerId)) ||
       initProfile
     this.setState({ post: postData, ownerProfile })
   }
 
-  getOwnerProfileById = (owner_id: string) => {
+  getOwnerProfileById = (ownerId: string) => {
     const profiles = this.props.profile?.getOtherProfilesJs()
-    const ownerProfile = profiles?.find((profile) => profile.id === owner_id)
+    const ownerProfile = profiles?.find((profile) => profile.id === ownerId)
     return ownerProfile
   }
 
@@ -60,7 +60,7 @@ export default class Post extends Component<IPostProps, IPostState> {
     const { myProfile, postData } = this.props
     let newCommentData: IComment = initComment
     newCommentData.content = e.target.value
-    newCommentData.owner_id = myProfile.id || ''
+    newCommentData.ownerId = myProfile.id || ''
 
     e.target.value = ''
     const postId = postData.id || ''
@@ -68,7 +68,7 @@ export default class Post extends Component<IPostProps, IPostState> {
       newCommentData,
       postId
     )
-    const newPost: IPost = response.data
+    const newPost: IPost = response
     if (newPost) {
       this.setState({ post: newPost })
     }

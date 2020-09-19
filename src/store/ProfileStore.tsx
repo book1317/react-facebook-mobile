@@ -55,14 +55,14 @@ class ProfileStore implements IProfileStore {
   async getOtherProfileById(id: string) {
     const res = await ProfileAPI.getProfileByID(id)
     if (res) {
-      this.otherProfiles.push(res.data)
+      this.otherProfiles.push(res)
+      return res
     }
-    return res.data
+    return ''
   }
 
   @action
   getOtherProfilesJs() {
-    // console.log('this.otherProfiles', toJS(this.otherProfiles))
     return toJS(this.otherProfiles)
   }
 
@@ -70,7 +70,7 @@ class ProfileStore implements IProfileStore {
   async getProfileById(id: string) {
     try {
       let res = await ProfileAPI.getProfileByID(id)
-      this.profile = res.data
+      this.profile = res
     } catch {}
   }
 
