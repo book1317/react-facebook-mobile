@@ -1,0 +1,9 @@
+version: "2"
+services:
+  react-facebook:
+    environment:
+      NODE_ENV: "develop"
+      VIRTUAL_PORT: 80
+      VIRTUAL_HOST: "react-facebook.brookietesto.tech"
+      LETSENCRYPT_HOST: "react-facebook.brookietesto.tech"
+      LETSENCRYPT_EMAIL: "bookboksforweb@gmail.com"

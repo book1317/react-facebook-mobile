@@ -1,0 +1,16 @@
+version: "2"
+services:
+  react-facebook:
+    extends:
+      file: base.yml
+      service: web
+    expose:
+      - 80
+    volumes:
+      - ./web/nginx-web.conf:/etc/nginx/nginx.conf
+      - ../build:/var/www/html/web
+
+networks:
+  default:
+    external:
+      name: sandbox_network
