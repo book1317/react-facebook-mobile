@@ -6,7 +6,7 @@ class PostAPI {
   async createPost(post: IPost) {
     try {
       const data = post
-      const response = await APIManager.post(APIName.post, data)
+      const response = await APIManager.post(APIName.posts, data)
       return response.data
     } catch (error) {
       console.log('error ===>', error)
@@ -27,6 +27,16 @@ class PostAPI {
   }
 
   async getPosts() {
+    try {
+      const response = await APIManager.get(APIName.posts)
+      return response.data
+    } catch (error) {
+      console.log('error ===>', error)
+      return ''
+    }
+  }
+
+  async getPostById(postId: string) {
     try {
       const response = await APIManager.get(APIName.post)
       return response.data

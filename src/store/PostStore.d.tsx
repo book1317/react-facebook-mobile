@@ -15,9 +15,10 @@ export interface IComment {
 
 export interface IPostStore {
   getPostsJS: () => IPost[]
-  getPost: () => void
+  getPosts: () => void
+  getPostById: (postId: string) => Promise<IPost>
   createPost: (post: IPost) => any
-  createComment: (comment: IComment, postId: string) => Promise<any>
+  createComment: (comment: IComment, postId: string) => Promise<IPost>
 }
 
 export const initPost = {

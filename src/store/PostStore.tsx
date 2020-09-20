@@ -18,13 +18,18 @@ class PostStore {
   }
 
   createComment = async (comment: IComment, postId: string) => {
-    const newComment = await PostAPI.createComment(comment, postId)
-    return newComment
+    const response = await PostAPI.createComment(comment, postId)
+    return response.data
   }
 
-  getPost = async () => {
+  getPosts = async () => {
     const resp = await PostAPI.getPosts()
     this.posts = resp.data || initPosts()
+  }
+
+  getPostById = async (postId: string) => {
+    const resp = await PostAPI.getPostById(postId)
+    return resp.data
   }
 }
 

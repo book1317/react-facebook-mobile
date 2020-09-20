@@ -6,6 +6,7 @@ const APIName = {
   register: '/register',
   comment: '/comment',
   post: '/post',
+  posts: '/posts',
 }
 
 export default APIName

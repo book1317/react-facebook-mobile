@@ -39,8 +39,6 @@ export default class HomePage extends React.Component<
     myProfile: initProfile,
   }
 
-  onClickLogin = () => {}
-
   handleKeyDown = async (e?: any) => {
     const { myProfile, posts } = this.state
     if (e.key === 'Enter' && e.target.value !== '') {
@@ -63,7 +61,7 @@ export default class HomePage extends React.Component<
       await this.props.profile.getMyProfileById(myProfileId)
       const myProfile = this.props.profile.getMyProfileJS()
 
-      await this.props.post.getPost()
+      await this.props.post.getPosts()
       const posts = this.props.post.getPostsJS()
 
       this.setState({ posts, myProfile, isLoading: false })

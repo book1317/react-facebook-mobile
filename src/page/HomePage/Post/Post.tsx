@@ -64,11 +64,10 @@ export default class Post extends Component<IPostProps, IPostState> {
 
     e.target.value = ''
     const postId = postData.id || ''
-    const response = await this.props.post?.createComment(
+    const newPost: IPost = await this.props.post?.createComment(
       newCommentData,
       postId
-    )
-    const newPost: IPost = response.data
+    )!
     if (newPost) {
       this.setState({ post: newPost })
     }
