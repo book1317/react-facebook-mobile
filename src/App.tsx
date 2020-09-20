@@ -12,7 +12,7 @@ import Footer from 'components/Footer/Footer'
 import MessagerPage from 'page/MessagerPage/MessagerPage'
 import ChatPage from 'page/ChatPage/ChatPage'
 import { IProfileStore } from 'store/ProfileStore.d'
-import APIName from 'api/APIName'
+import PageName from 'constant/PageName'
 
 type MyProps = {
   location?: any
@@ -33,13 +33,11 @@ class App extends React.Component<MyProps, MyState> {
     }
     const token = localStorage['isAuthen']
     if (token) {
-      this.props.profile.setIsLogin(true)
-      const myProfileString = localStorage['myProfile']
-      JSON.parse(myProfileString)
-      if (myProfileString) {
-        const myProfile = JSON.parse(myProfileString)
-        this.props.profile.setMyProfile(myProfile)
+      const myProfileId = localStorage['myProfileId']
+      if (myProfileId) {
+        this.props.profile.setMyProfileId(myProfileId)
       }
+      this.props.profile.setIsLogin(true)
     }
   }
 
@@ -58,10 +56,10 @@ class App extends React.Component<MyProps, MyState> {
           <Fragment>
             {this.props.footer.isShow && <Footer />}
             <Switch>
-              <Route path={APIName.profile} component={ProfilePage} />
-              <Route path={APIName.messager} component={MessagerPage} />
-              <Route path={APIName.chat} component={ChatPage} />
-              <Route path={APIName.login} component={LoginPage} />
+              <Route path={PageName.profile} component={ProfilePage} />
+              <Route path={PageName.messager} component={MessagerPage} />
+              <Route path={PageName.chat} component={ChatPage} />
+              <Route path={PageName.login} component={LoginPage} />
               <Route exact path="/" component={HomePage} />
               <Redirect to="/" />
             </Switch>
@@ -72,9 +70,9 @@ class App extends React.Component<MyProps, MyState> {
       return (
         <Router history={history}>
           <Fragment>
-            <Route path={APIName.login} component={LoginPage} />
-            <Route path={APIName.register} component={RegisterPage} />
-            {/* <Redirect to={APIName.login} /> */}
+            <Route path={PageName.login} component={LoginPage} />
+            <Route path={PageName.register} component={RegisterPage} />
+            <Redirect to={PageName.login} />
           </Fragment>
         </Router>
       )

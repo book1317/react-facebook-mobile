@@ -68,7 +68,7 @@ export default class Post extends Component<IPostProps, IPostState> {
       newCommentData,
       postId
     )
-    const newPost: IPost = response
+    const newPost: IPost = response.data
     if (newPost) {
       this.setState({ post: newPost })
     }

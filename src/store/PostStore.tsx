@@ -24,7 +24,7 @@ class PostStore {
 
   getPost = async () => {
     const resp = await PostAPI.getPosts()
-    this.posts = resp || initPosts()
+    this.posts = resp.data || initPosts()
   }
 }
 

@@ -1,4 +1,4 @@
-import APIManager from 'api'
+import APIManager from 'api/APIManager'
 import APIName from './APIName'
 import { IAccount } from 'store/AuthenStore.d'
 

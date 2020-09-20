@@ -56,12 +56,14 @@ export default class LoginPage extends React.Component<
   onLogin = async () => {
     const { account } = this.state
     if (account.username && account.password) {
-      const myProfile = await LoginAPI.login(account)
-      if (myProfile) {
+      const myProfileId = await LoginAPI.login(account)
+      console.log('myProfileId ===>', myProfileId)
+      if (myProfileId) {
         const token = 'jwtToken'
-        const myProfileString = JSON.stringify(myProfile)
         localStorage.setItem('isAuthen', token)
-        localStorage.setItem('myProfile', myProfileString)
+        localStorage.setItem('myProfileId', myProfileId)
+        await this.props.profile.getMyProfileById(myProfileId)
+        const myProfile = this.props.profile.getMyProfileJS()
         this.props.profile.setMyProfile(myProfile)
         this.props.profile.setIsLogin(true)
         this.props.history.replace('/')

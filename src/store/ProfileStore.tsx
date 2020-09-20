@@ -12,6 +12,7 @@ class ProfileStore implements IProfileStore {
   @observable profiles: IProfile[]
   @observable otherProfiles: IProfile[]
   @observable isLogin: boolean
+  @observable myProfileId: string
 
   constructor() {
     this.profile = initProfile
@@ -19,6 +20,7 @@ class ProfileStore implements IProfileStore {
     this.profiles = []
     this.isLogin = false
     this.otherProfiles = []
+    this.myProfileId = ''
   }
 
   @action
@@ -33,12 +35,20 @@ class ProfileStore implements IProfileStore {
   @action
   async getProfileByAccount(account: IAccount) {
     const res = await ProfileAPI.getProfileByAccount(account)
-    this.profile = res || initProfile
+    this.profile = res.data || initProfile
   }
 
   @action
   async setMyProfile(profile: IProfile) {
     this.myProfile = profile
+  }
+
+  @action
+  async getMyProfileById(id: string) {
+    try {
+      let res = await ProfileAPI.getProfileByID(id)
+      this.myProfile = res.data
+    } catch {}
   }
 
   @action
@@ -55,8 +65,8 @@ class ProfileStore implements IProfileStore {
   async getOtherProfileById(id: string) {
     const res = await ProfileAPI.getProfileByID(id)
     if (res) {
-      this.otherProfiles.push(res)
-      return res
+      this.otherProfiles.push(res.data)
+      return res.data
     }
     return ''
   }
@@ -70,7 +80,7 @@ class ProfileStore implements IProfileStore {
   async getProfileById(id: string) {
     try {
       let res = await ProfileAPI.getProfileByID(id)
-      this.profile = res
+      this.profile = res.data
     } catch {}
   }
 
@@ -82,12 +92,31 @@ class ProfileStore implements IProfileStore {
   @action
   async getProfiles() {
     const res = await ProfileAPI.getProfiles()
-    this.profiles = res || initProfile
+    this.profiles = res.data || initProfile
   }
 
   @action
   getProfilesJS() {
     return toJS(this.profiles)
+  }
+
+  @action
+  async updateProfileImage(id: string, imageProfile: string) {
+    try {
+      let res = await ProfileAPI.updateProfileImageByID(id, imageProfile)
+      this.profile = res.data || initProfile
+      return res.data
+    } catch {}
+  }
+
+  @action
+  setMyProfileId(id: string) {
+    this.myProfileId = id
+  }
+
+  @action
+  getMyProfileId() {
+    return this.myProfileId
   }
 
   PROFILE(): any {

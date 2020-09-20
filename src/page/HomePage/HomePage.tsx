@@ -59,9 +59,13 @@ export default class HomePage extends React.Component<
   async componentDidMount() {
     try {
     } finally {
+      const myProfileId = this.props.profile.getMyProfileId()
+      await this.props.profile.getMyProfileById(myProfileId)
+      const myProfile = this.props.profile.getMyProfileJS()
+
       await this.props.post.getPost()
       const posts = this.props.post.getPostsJS()
-      const myProfile = this.props.profile.getMyProfileJS()
+
       this.setState({ posts, myProfile, isLoading: false })
     }
   }

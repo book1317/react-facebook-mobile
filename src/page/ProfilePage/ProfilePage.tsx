@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react'
 import imageProfile from 'image/profile1.png'
 import { IProfile, IProfileStore, initProfile } from 'store/ProfileStore.d'
 import history from 'utils/History'
-import qs from 'qs'
+import { FaCamera } from 'react-icons/fa'
 
 interface IProfilePageProps {
   profile: IProfileStore
@@ -39,13 +39,40 @@ export default class ProfilePage extends React.Component<
       const profileId = splitPathname.slice(-1)[0]
       await this.props.profile.getProfileById(profileId)
       myProfile = this.props.profile.getProfileJS()
+    } else {
+      const profileId = localStorage['myProfileId']
+      await this.props.profile.getMyProfileById(profileId)
+      myProfile = this.props.profile.getMyProfileJS()
     }
-
     // const param = qs.parse(this.props.location.search, {
     //   ignoreQueryPrefix: true,
     // })
 
     this.setState({ myProfile })
+  }
+
+  changeProfileImage = async (event: any) => {
+    try {
+      if (event.target.files && event.target.files[0]) {
+        let img = event.target.files[0]
+        let reader = new FileReader()
+        reader.readAsDataURL(img)
+        reader.onloadend = async () => {
+          const { myProfile } = this.state
+          const newImage = reader.result as any
+          await this.props.profile.updateProfileImage(
+            myProfile.id || '',
+            newImage
+          )
+          const profileId = localStorage['myProfileId']
+          await this.props.profile.getMyProfileById(profileId)
+          const newProfile = this.props.profile.getMyProfileJS()
+          this.setState({
+            myProfile: newProfile,
+          })
+        }
+      }
+    } catch (err) {}
   }
 
   render() {
@@ -62,11 +89,21 @@ export default class ProfilePage extends React.Component<
             src={`https://img.huffingtonpost.com/asset/5dcc613f1f00009304dee539.jpeg?cache=QaTFuOj2IM&ops=crop_834_777_4651_2994%2Cscalefit_720_noupscale`}
           />
 
-          <img
-            alt=""
-            className={css.image}
-            src={myProfile.image || imageProfile}
-          />
+          <div className={css.profileImageContainer}>
+            <img
+              alt=""
+              className={css.profileImage}
+              src={myProfile.image || imageProfile}
+            />
+            <div className={css.cameraIcon}>
+              <input
+                type="file"
+                className={css.profileImageInput}
+                onChange={this.changeProfileImage}
+              />
+              <FaCamera size={20} color={'#1c76f2'} />
+            </div>
+          </div>
         </div>
         <div className={css.name}>
           <div>

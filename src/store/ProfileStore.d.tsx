@@ -14,10 +14,14 @@ export interface IProfileStore {
   getProfileById: (id: string) => void
   getProfileJS: () => IProfile
   getProfilesJS: () => IProfile[]
+  getMyProfileById: (id: string) => void
   getMyProfileJS: () => IProfile
   setMyProfile: (profile: IProfile) => void
   setIsLogin: (isLogin: boolean) => void
   getIsLogin: () => boolean
+  updateProfileImage: (id: string, pofileImage: string) => Promise<IProfile>
+  setMyProfileId: (id: string) => void
+  getMyProfileId: () => string
 }
 
 export const initProfile = {

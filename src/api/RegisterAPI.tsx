@@ -1,4 +1,4 @@
-import APIManager from 'api'
+import APIManager from 'api/APIManager'
 import APIName from './APIName'
 import { IRegister } from 'store/RegisterStore.d'
 import { IProfile } from 'store/ProfileStore.d'
