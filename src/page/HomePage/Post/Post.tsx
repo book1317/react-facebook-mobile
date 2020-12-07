@@ -38,16 +38,8 @@ export default class Post extends Component<IPostProps, IPostState> {
 
   async componentDidMount() {
     const { postData } = this.props
-    const ownerProfile =
-      (await this.props.profile?.getOtherProfileById(postData.ownerId)) ||
-      initProfile
+    const ownerProfile = postData.ownerProfile || initProfile
     this.setState({ post: postData, ownerProfile })
-  }
-
-  getOwnerProfileById = (ownerId: string) => {
-    const profiles = this.props.profile?.getOtherProfilesJs()
-    const ownerProfile = profiles?.find((profile) => profile.id === ownerId)
-    return ownerProfile
   }
 
   handleKeyDown = (e: any) => {
@@ -74,11 +66,11 @@ export default class Post extends Component<IPostProps, IPostState> {
   }
 
   handleLikeButton = (e?: any) => {
-    const { postData } = this.props
-    const { isLike } = this.state
-    if (isLike) postData.like--
-    else postData.like++
-    this.setState({ isLike: !isLike })
+    // const { postData } = this.props
+    // const { isLike } = this.state
+    // if (isLike) postData.like--
+    // else postData.like++
+    // this.setState({ isLike: !isLike })
   }
 
   gotoOtherProfile = () => {
@@ -110,7 +102,7 @@ export default class Post extends Component<IPostProps, IPostState> {
         <div className={css.status}>
           <div>
             <FaRegThumbsUp />
-            <span className={css.textAfterIcon}>{like}</span>
+            <span className={css.textAfterIcon}>{like.length}</span>
           </div>
           <div>
             <div className={css.rightDetail}>{comments.length} Comments</div>

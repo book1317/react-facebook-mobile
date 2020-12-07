@@ -36,11 +36,14 @@ export default class ProfilePage extends React.Component<
 
     let myProfile = this.props.profile.getMyProfileJS()
     if (splitPathname.length > 2) {
+      console.log('splitPathname', splitPathname)
       const profileId = splitPathname.slice(-1)[0]
       await this.props.profile.getProfileById(profileId)
       myProfile = this.props.profile.getProfileJS()
     } else {
       const profileId = localStorage['myProfileId']
+      console.log('profileId', profileId)
+
       await this.props.profile.getMyProfileById(profileId)
       myProfile = this.props.profile.getMyProfileJS()
     }

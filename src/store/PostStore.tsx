@@ -24,7 +24,7 @@ class PostStore {
 
   getPosts = async () => {
     const resp = await PostAPI.getPosts()
-    this.posts = resp.data || initPosts()
+    this.posts = resp?.data || []
   }
 
   getPostById = async (postId: string) => {
@@ -32,7 +32,5 @@ class PostStore {
     return resp.data
   }
 }
-
-const initPosts = () => []
 
 export default new PostStore()

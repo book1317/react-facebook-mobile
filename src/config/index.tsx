@@ -1,4 +1,5 @@
-import configLocal from './config.local.json'
+import configLocal from './config.local'
+import configProd from './config.prod'
 
 interface IConfig {
   baseURL: string
@@ -9,7 +10,7 @@ const getEnv = (env: string) => {
     case 'dev':
       return configLocal
     default:
-      return configLocal
+      return configProd
   }
 }
 

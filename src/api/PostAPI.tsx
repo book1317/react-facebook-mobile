@@ -6,6 +6,7 @@ class PostAPI {
   async createPost(post: IPost) {
     try {
       const data = post
+      console.log('post', post)
       const response = await APIManager.post(APIName.posts, data)
       return response.data
     } catch (error) {

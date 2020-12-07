@@ -49,7 +49,7 @@ class App extends React.Component<MyProps, MyState> {
 
   render() {
     const isLogin = this.props.profile.getIsLogin()
-
+    console.log('isLogin', isLogin)
     if (isLogin)
       return (
         <Router history={history}>

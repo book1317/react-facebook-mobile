@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import './homePageStyle.scss'
@@ -11,7 +11,7 @@ import {
 } from 'react-icons/fa'
 import { initPost, IPost, IPostStore } from 'store/PostStore.d'
 import { IProfile, IProfileStore, initProfile } from 'store/ProfileStore.d'
-import StorySlider from './Story/StorySlider'
+// import StorySlider from './Story/StorySlider'
 import Post from './Post/Post'
 import facebook_image from 'image/logo.png'
 import profileImage from 'image/profile1.png'
@@ -39,6 +39,18 @@ export default class HomePage extends React.Component<
     myProfile: initProfile,
   }
 
+  async componentDidMount() {
+    try {
+      const myProfileId = this.props.profile.getMyProfileId()
+      await this.props.profile.getMyProfileById(myProfileId)
+      const myProfile = this.props.profile.getMyProfileJS()
+
+      await this.props.post.getPosts()
+      const posts = this.props.post.getPostsJS()
+      this.setState({ posts, myProfile, isLoading: false })
+    } catch (err) {}
+  }
+
   handleKeyDown = async (e?: any) => {
     const { myProfile, posts } = this.state
     if (e.key === 'Enter' && e.target.value !== '') {
@@ -54,25 +66,11 @@ export default class HomePage extends React.Component<
     }
   }
 
-  async componentDidMount() {
-    try {
-    } finally {
-      const myProfileId = this.props.profile.getMyProfileId()
-      await this.props.profile.getMyProfileById(myProfileId)
-      const myProfile = this.props.profile.getMyProfileJS()
-
-      await this.props.post.getPosts()
-      const posts = this.props.post.getPostsJS()
-
-      this.setState({ posts, myProfile, isLoading: false })
-    }
-  }
-
   render() {
     const { myProfile, posts, isLoading } = this.state
 
     return (
-      <React.Fragment>
+      <Fragment>
         {!isLoading && (
           <div className="home-page">
             <div className="home-header-container">
@@ -114,7 +112,7 @@ export default class HomePage extends React.Component<
                 </div>
               </div>
             </div>
-            <StorySlider />
+            {/* <StorySlider /> */}
             {posts.length > 0 &&
               posts.map((post: IPost) => (
                 <Post postData={post} key={post.id} myProfile={myProfile} />
@@ -122,7 +120,7 @@ export default class HomePage extends React.Component<
             <div style={{ marginBottom: 60 }} />
           </div>
         )}
-      </React.Fragment>
+      </Fragment>
     )
   }
 }
